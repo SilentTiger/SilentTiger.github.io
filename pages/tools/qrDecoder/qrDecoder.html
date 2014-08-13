@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui" name="viewport"/>
+    <link rel="stylesheet" href="../../../css/cssreset-min.css"/>
+    <title>QR Decoder</title>
+</head>
+<body>
+    <div id="mainContainer">
+        <a href="../../../index.html">return home</a><br/>
+        <input type="file" id="imageSelector" style="width:245px;"/>
+        <input type="button" value="read" style="width:60px"><br/>
+        <video id="v" style="width:320px;height:240px;display:none" autoplay></video>
+        <canvas id="qr-canvas" style="width:320px;height:240px;" width="320" height="240">
+            Your browser doesn't support!
+        </canvas>
+        <div id="result" style="background-color:#fffac5"></div>
+    </div>
+
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/llqrcode.js"></script>
+    <script type="text/javascript">
+        var gCtx = null;
+        var gCanvas = $('#qr-canvas')[0];
+        var v = $('video')[0];
+
+        function htmlEntities(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function isCanvasSupported(){
+            var elem = document.createElement('canvas');
+            return !!(elem.getContext && elem.getContext('2d'));
+        }
+
+        function initCanvas(){
+            gCanvas = document.getElementById("qr-canvas");
+            gCtx = gCanvas.getContext("2d");
+            gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+        }
+
+        function captureToCanvas() {
+            try{
+                gCtx.drawImage(v, 0, 0, 320, 240);
+                try{
+                    qrcode.decode();
+                }catch(e){
+                    console.log(e);
+                    setTimeout(captureToCanvas, 500);
+                }
+            }catch(e){
+                console.log(e);
+                setTimeout(captureToCanvas, 500);
+            }
+        }
+
+        function setwebcam(){
+            var n=navigator;
+
+            function success(stream) {
+                if(n.webkitGetUserMedia)
+                    v.src = window.webkitURL.createObjectURL(stream);
+                else if(n.mozGetUserMedia){
+                    v.mozSrcObject = stream;
+                    v.play();
+                }else{
+                    v.src = stream;
+                }
+                setTimeout(captureToCanvas, 500);
+            }
+
+            function error(e){
+                alert("init media stream error\r\n" + e);
+            }
+
+            if(n.getUserMedia){
+                n.getUserMedia({video: true, audio: false}, success, error);
+            }else if(n.webkitGetUserMedia){
+                n.webkitGetUserMedia({video: true, audio: false}, success, error);
+            }else if(n.mozGetUserMedia){
+                n.mozGetUserMedia({video: true, audio: false}, success, error);
+            }else{
+                $('video').hide();
+                $('#gCanvas').show();
+            }
+        }
+
+        function read(a)
+        {
+            console.log(a);
+            var html="<br>";
+            if(a.indexOf("http://") === 0 || a.indexOf("https://") === 0)
+                html+="<a target='_blank' href='"+a+"'>"+a+"</a><br>";
+            html+="<b>"+htmlEntities(a)+"</b><br><br>";
+            document.getElementById("result").innerHTML=html;
+        }
+
+        function load(){
+
+            if(isCanvasSupported() && window.FileReader){
+                initCanvas(800, 600);
+                qrcode.callback = read;
+                setwebcam();
+            } else{
+                $('#mainContainer').empty().text("Sorry, your browser doesn't support!");
+            }
+        }
+        load();
+    </script>
+</body>
+</html>
