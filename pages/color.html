@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2014 by SilentTiger (http://jsbin.com/gofoyo/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style type="text/css">
+    .item{margin:5px 0 5px 0;float:left}
+    .item:after{clear:left;content:".";visibility:hidden}
+    .item input{float:left;padding:0;margin:0;width:60px}
+    .item div{float:left;display:inline-block;width:150px;height:20px;margin-left:5px}
+  </style>
+</head>
+<body>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+  <div class="item"><input type="text"/><div></div></div>
+<script id="jsbin-javascript">
+$('.item > input').bind("input", function(){
+  $(this).parent().find("div").css("background-color", "#" + $(this).val());
+});
+</script>
+</body>
+</html>
