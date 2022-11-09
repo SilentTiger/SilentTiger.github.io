@@ -37,6 +37,7 @@ copy:
 #   icon: link || the description
 social:
   fab fa-github: https://github.com/SilentTiger || Github
+  fab fa-twitter: https://twitter.com/SilentTiger || Twitter
   fab fa-square-instagram: https://www.instagram.com/silenttiger007/ || Instgram
   fas fa-envelope: mailto:cia.fbi.007@hotmail.com || Email
 
@@ -82,7 +83,7 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar:
-  img: https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png
+  img: /img/avatar.png
   effect: false
 
 # Disable all banner image
@@ -668,7 +669,7 @@ aside:
     enable: true
     description:
     button:
-      enable: true
+      enable: false
       icon: fab fa-github
       text: Follow Me
       link: https://github.com/xxxxxx
