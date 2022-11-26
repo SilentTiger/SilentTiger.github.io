@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Using the Console[译] | 老虎的小窝</title><meta name="author" content="SilentTiger"><meta name="copyright" content="SilentTiger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。 本人英文水平较渣，如有不妥之处，还请不吝赐教。 JavaScript Console为开发人员测试网页和应用提供了两种主要的功能：  提供了一个通过Console API，比如console.log()和co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Using the Console[译]">
+<meta property="og:url" content="https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/index.html">
+<meta property="og:site_name" content="老虎的小窝">
+<meta property="og:description" content="由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。 本人英文水平较渣，如有不妥之处，还请不吝赐教。 JavaScript Console为开发人员测试网页和应用提供了两种主要的功能：  提供了一个通过Console API，比如console.log()和co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silenttiger.online/img/avatar.png">
+<meta property="article:published_time" content="2013-06-25T06:26:00.000Z">
+<meta property="article:modified_time" content="2022-11-26T13:09:32.356Z">
+<meta property="article:author" content="SilentTiger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silenttiger.online/img/avatar.png"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Using the Console[译]',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-11-26 21:09:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Using the Console[译]</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2013-06-25T06:26:00.000Z" title="发表于 2013-06-25 14:26:00">2013-06-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-26T13:09:32.356Z" title="更新于 2022-11-26 21:09:32">2022-11-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Using the Console[译]"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。</p>
+<p>本人英文水平较渣，如有不妥之处，还请不吝赐教。</p>
+<p>JavaScript Console为开发人员测试网页和应用提供了两种主要的功能：</p>
+<ul>
+<li>提供了一个通过Console API，比如console.log()和<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">console.profile()</a>，来显示诊断信息的地方。</li>
+<li>提供了一个让你能够通过输入命令与html文档和Chrome开发者工具交互的shell。你能在Console中直接对表达式求值，还能使用<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">Command Line API</a>提供的各种方法，比如用<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">$()</a>命令选择元素,或者用<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">profile()</a>命令开始对CPU资源进行监控分析。</li>
+</ul>
+<p>这篇文章将向您展示这两类API的概况和一些基本用法.您也可以浏览<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">Console API</a>和<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">Command Line API</a>的使用手册。</p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Basic operation</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Opening the Console</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Clearing the console history</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Console settings</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Using the Console API</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Writing to the console</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Errors and warnings</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Assertions</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Filtering console output</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Grouping output</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>String substitution and formatting</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Formatting DOM elements as JavaScript objects</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Styling console output with CSS</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Measuring how long something takes</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Marking the Timeline</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Setting breakpoints in JavaScript</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Using the Command Line API</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Evaluating expressions</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Selecting elements</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Inspecting DOM elements and JavaScript heap objects</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Accessing recently selected elements and objects</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Monitoring events</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN"><strong>Controlling the CPU profiler</strong></a></p>
+<p>基本操作</p>
+<p><strong>打开Console</strong></p>
+<p>通过Chrome DevTools，我们有两种方式打开JavaScript Console：独立的Console标签页,或者在其他标签页（比如Element标签页或Source标签页）中以分离视图的方式显示。</p>
+<p>我们可以通过下面这些方法中的一种打开Console标签页：</p>
+<ul>
+<li>通过键盘快捷键打开，<strong>Command - Option - J</strong> (Mac)或者<strong>Control -Shift -J</strong> (Windows&#x2F;Linux)。</li>
+<li>通过菜单打开，<strong>View &gt; Developer &gt; JavaScript Console</strong>。</li>
+</ul>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141845-f20bec4d82c647b99845c80a37ac5a83.png"></p>
+<p>如果需要在其他标签页上切换Console的开启状态,可以在键盘上按<strong>Esc</strong>键,或者点击Chrome DevTools窗口左下角的<strong>Show&#x2F;Hide Console</strong>按钮。下面的这幅屏幕截图中Console被以分离视图的形式显示在Element标签页面板中。</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141847-4e12eff72a534b7a8183b965d28a4b5c.png"></p>
+<p><strong>清除Console的历史信息</strong></p>
+<p>可以通过以下办法中的一个清除Console的历史信息：</p>
+<ul>
+<li>在Console窗口的任何位置点击鼠标右键，并在打开的右键菜单中选择Clear Console。</li>
+<li>在shell prompt中输入并执行<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN"><strong>clear()</strong></a>命令行API。</li>
+<li>通过JavaScript调用<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN"><strong>console.clear()</strong></a> Console API。</li>
+<li>使用键盘快捷键<strong>⌘****K</strong>或<strong>⌃****L</strong> (Mac)，<strong>Control - L</strong> (Windows and Linux)。</li>
+</ul>
+<p>在默认状态下，Console历史信息会在你跳转到其他页面时自动清除。你可以通过在设置对话框的Console区域启用<strong>Preserve log upon navigation</strong>来改变这一行为(参考Console preferences)。</p>
+<p><strong>Console设置</strong></p>
+<p>在DevTools设置对话框的General标签页中有两个关于Console的全局设置项：</p>
+<ul>
+<li><strong>Log XMLHTTPRequests</strong>&amp;mdash;&amp;mdash;它决定了是否将每个XMLHTTPRequest请求都显示在Console面板中。</li>
+<li><strong>Preserve log upon navigation</strong>&amp;mdash;&amp;mdash;它决定了当你跳转到其他页面时是否保留当前页面的console历史信息。</li>
+</ul>
+<p>默认状态下，这两个设置项都是关闭状态的。</p>
+<p>你还可以通过在Console的任何区域点击鼠标右键所显示的右键菜单中更改这两个设置项。</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141848-1c734f5b7f9f4121a2d7e801d1cd7f16.png"></p>
+<p>使用Console API</p>
+<p>Console API是一组由全局对象console所提供的方法的集合，这个全局对象是有DevTools定义的。这些API的一个主要功能就是在你的程序运行时往console区域打印信息(比如一个属性值，一个完整的对象或者一个DOM元素)。你还能对console区域的信息进行可视化的分组以避免混乱的信息显示。</p>
+<p><strong>向console区域输出信息</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">console.log()</a>可以支持传入一个或多个表达式作为参数，它会把传入的参数输出到console区域。比如：</p>
+<p>vara =document.createElement(‘p’);a.appendChild(document.createTextNode(‘foo’));a.appendChild(document.createTextNode(‘bar’));console.log(“Node count：”+a.childNodes.length);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141848-a678973058be462da93fe11f5e535919.png"></p>
+<p>除了像上面那样用+将表达式链接起来,你还可以把这些表达式分别作为一个独立的参数传给此方法，他们会被合并为一行，并用空格分隔开。</p>
+<p>console.log(“Node count：”,a.childNodes.length,”and the current time is：”,Date.now());</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141849-e055cfc395bb4af7b717f4048776c8fe.png"></p>
+<p><strong>错误和警告</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">console.error()</a>方法会在显示红色信息的同时显示一个红色的图标。</p>
+<p>functionconnectToServer(){console.error(“Error：%s (%i)”,”Server is not responding”,500);}connectToServer();</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141849-54b90155a266433392bc01e472bb9b63.png"></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">console.warn()</a>方法会在现实信息的同时显示一个黄色的图标。</p>
+<p>if(a.childNodes.length &lt;3){console.warn(‘Warning! Too few nodes (%d)’,a.childNodes.length);}</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141850-d67e1b379410426e81532fa1bd156b9a.png"></p>
+<p><strong>断言</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console-api?hl=zh-CN">console.assert()</a>方法会在他的第一个参数表达式的值为false时显示一条错误信息（就是他的第二个参数）。举个栗子，在下面的示例中，当list元素中的子元素数目大于500时就会向console区域输出一条错误信息。</p>
+<p>console.assert(list.childNodes.length &lt;500,”Node count is &gt; 500”);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141851-ac61b22fa0274cfc980ddd747f4f18b0.png"></p>
+<p><strong>过滤console输出信息</strong></p>
+<p>你可以通过选择Console窗口下方的过滤选项来快速地通过输出信息的严重等级来过滤输出的信息。如下图所示：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141852-d53aab32794f47f486c81b8f22d86805.png"></p>
+<p>过滤选项：</p>
+<ul>
+<li><strong>All</strong>&amp;mdash;&amp;mdash;显示所有的输出信息。</li>
+<li><strong>Errors</strong>&amp;mdash;&amp;mdash;只显示通过console.error()方法输出的信息。</li>
+<li><strong>Warnings</strong>&amp;mdash;&amp;mdash;只显示通过console.warn()方法输出的信息。</li>
+<li><strong>Logs</strong>&amp;mdash;&amp;mdash;只显示通过console.log()，console.info()和console.debug()方法输出的信息。</li>
+<li><strong>Debug</strong>&amp;mdash;&amp;mdash;只显示通过console.timeEnd()方法输出的信息。</li>
+</ul>
+<p><strong>对输出信息分组</strong></p>
+<p>你可以通过console.group()和groupEnd()命令对相关的console输出信息进行分组显示。</p>
+<p>varuser =“jsmith”,authenticated =false;console.group(“Authentication phase”);console.log(“Authenticating user ‘%s’”,user);&#x2F;&#x2F; authentication code here…if(!authenticated){console.log(“User ‘%s’ not authenticated.”,user)}console.groupEnd();</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141852-83c355469bfd4bcf9fcae94d64f43932.png"></p>
+<p>你还可以嵌套分组。比如在下面的例子，在登入过程中创建了一个认证信息分组。如果用户认证通过，就会在认证信息分组中再创建一个信息分组。</p>
+<p>varuser =“jsmith”,authenticated =true,authorized =true;&#x2F;&#x2F; Top-level groupconsole.group(“Authenticating user ‘%s’”,user);if(authenticated){console.log(“User ‘%s’ was authenticated”,user);&#x2F;&#x2F; Start nested groupconsole.group(“Authorizing user ‘%s’”,user);if(authorized){console.log(“User ‘%s’ was authorized.”,user);}&#x2F;&#x2F; End nested groupconsole.groupEnd();}&#x2F;&#x2F; End top-level groupconsole.groupEnd();console.log(“A group-less log trace.”);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141853-f3f4c7d11f6e48bf9f9d6ddc8a8c9d2a.png"></p>
+<p>如果要创建一个在初始时处于折叠状态的信息分组，就用console.groupCollapsed()方法，而不是console.group()方法,如下所示：</p>
+<p>console.groupCollapsed(“Authenticating user ‘%s’”,user);if(authenticated){…}</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141854-265537604f20415d9d81d181caef806b.png"></p>
+<p><strong>格式字符串和字符串格式化</strong></p>
+<p>你传给任何console信息输出方法(比如log()或error())的第一个参数都可以包含一个或多个<em>格式字符串。</em>一个格式字符串由一个%符号和紧跟其后的一个字母构成，这个字母代表了将要应用到值上面的一种特定格式(比如%s代表字符串)。格式字符串还标识出了在哪里替换成后面的参数值。</p>
+<p>下面的例子演示了用%s(字符串)和%d(整数)格式字符串将值插入到输出的字符串中。</p>
+<p>console.log(“%s has %d points”,”Sam”,”100”);</p>
+<p>这个表达式将会在console区域输出”Sam has 100 points”。</p>
+<p>下面的表格列出了所有受支持的格式字符串和他们说代表的含义：</p>
+<p>|||</p>
+<colgroup><col /><col /></colgroup>|---|---|
+|**Format specifier**|**Description**|
+|%s|将值格式化为字符串。|
+|%dor%i|将值格式化为整数。|
+|%f|将值格式化为浮点数。|
+|%o|将值格式化为可展开的DOM元素(就像在Elements面板中一样)。|
+|%O|将值格式化为可展开的JavaScript对象。|
+|%c|将第二个参数说知道的css规则应用到输出信息。|
+
+<p>下面这个例子中%d格式字符串会被document.childNodes.length的值替换，并显示为一个整数;而%f格式字符串则被Date.now()的值替换，并显示为一个浮点数。</p>
+<p>console.log(“Node count：%d, and the time is %f.”,document.childNodes.length,Date.now());</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141854-7766712895f64fe1a1befd362b19eef7.png"></p>
+<p><strong>将DOM元素格式化为JavaScript对象</strong></p>
+<p>默认状态下，当你将一个DOM元素输出到console区域时，它会像在Elements面板中一样显示为XML格式：</p>
+<p>console.log(document.body.firstElementChild)</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141855-2bbefc23ceb947889d12f71cb8fa5bbd.png"></p>
+<p>你还可以用console.dir()方法将DOM元素输出为JavaScript样式：</p>
+<p>console.dir(document.body.firstElementChild);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141855-3d613dbc358f4c36b786fd576536b096.png"></p>
+<p>你还可以用console.log()方法配合%O格式字符串以达到同样的效果：</p>
+<p>console.log(“%O”,document.body.firstElementChild);</p>
+<p><strong>对console输出信息应用CSS样式</strong></p>
+<p>你可以用%c格式字符串将自定义CSS规则应用到任何你用console.log()或类似的方法输出到Console的信息上。</p>
+<p>console.log(“%cThis will be formatted with large, blue text”,”color：blue; font-size：x-large”);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141856-d9dc095b7855488e9e3eed75f0f38c30.png"></p>
+<p><strong>测量花费的时间</strong></p>
+<p>你可以用console.time()和console.timeEnd()方法测量一个函数或操作完成所需的时间。你可以在开始计时的地方调用console.time()方法，然后调用console.timeEnd()方法停止计时。这两次调用之间所花费的时间将被显示在console区域。</p>
+<p>console.time(“Array initialize”);vararray=newArray(1000000);for(vari =array.length -1;i &gt;&#x3D;0;i--){array[i]=newObject();};console.timeEnd(“Array initialize”);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141856-253e6b074530447b9e929e5e0bc555a0.png"></p>
+<p><strong>注意：</strong>你必须在调用console.time()和timeEnd()时传入同样的字符串以得到你想要的结果。</p>
+<p><strong>创建Timeline</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/timeline?hl=zh-CN">Timeline面板</a>为你提供了一个关于页面或应用在加载和使用时哪些地方花费了时间的概览。console.timeStamp()方法会在它被执行的时候在Timeline上做一个标记。这样，你可以很容易地找到你的应用中的事件和浏览器事件，比如layout和paints，之间的联系。</p>
+<p><strong>注意：</strong>console.timeStamp()方法只在Timeline处于记录过程中时才会起作用。</p>
+<p>在下面的例子中当程序执行到AddResult()函数内部时，就会在Timeline上做一个标记。</p>
+<p>functionAddResult(name,result){console.timeStamp(“Adding result”);vartext =name +’：’+result;varresults =document.getElementById(“results”);results.innerHTML +&#x3D;(text +”<br>“);}</p>
+<p>如下面的屏幕截图所示，timeStamp()命令会在Timeline的这些位置留下标记：</p>
+<ul>
+<li>在Timeline的summary和detail视图中的垂直黄线。</li>
+<li>在事件记录列表中的一条记录。</li>
+</ul>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141857-247b3c011f9f4a47bbe46a878e6c6267.png"></p>
+<p><strong>在JavaScript中设置断点</strong></p>
+<p>你可以在JavaScript代码中调用debugger命令来开始一次debug。比如在下面的例子中，当brightness()方法被调用时就会开始一次JavaScript调试：</p>
+<p>brightness：function(){debugger;varr =Math.floor(this.red*255);varg =Math.floor(this.green*255);varb =Math.floor(this.blue*255);return(r *77+g *150+b *29)&gt;&gt;8;}</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141858-f26a48eff5a647dfa5dbc8f4a0b6542a.png"></p>
+<p>Brian Arnold开发了一种非常有趣的条件调试技术，参见Breakpoint Actions in JavaScript.。</p>
+<p>使用Command Line API</p>
+<p>Console除了用作通过应用程序显示信息的地方，它还是一个让你可以直接对表达式求值或执行由Command Line API提供的命令的地方。该API提供了以下功能：</p>
+<ul>
+<li>方便的DOM元素选取功能</li>
+<li>对CPU性能监控分析的方法</li>
+<li>部分Console API方法的别名</li>
+<li>监视事件</li>
+<li>查看对象上注册的事件监听</li>
+</ul>
+<p><strong>表达式求值</strong></p>
+<p>当你按下Return或Enter键时，Console会尝试对任何你输入的JavaScript表达式求值。Console还提供了自动完成提示和tab自动完成输入。比如你输入一个表达式，他的属性名称就会自动显示在提示中。如果有多个属性都拥有相同的前缀，此时按tab键就会循环遍历它们。按下向右箭头按键，就会输入当前的建议项。当只有一个建议项时，按tab键也会输入该建议项。</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141859-e71c8eb429f143e399b4d79db4cbf33d.png"></p>
+<p>如果要输入一个多行的表达式（比如一个方法的定义内容），可以按Shift+Enter换行。</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141859-3a2b6202daee430babf76d444cd6fe35.png"></p>
+<p><strong>选择元素</strong></p>
+<p>Command Line API提供了一些方法以访问应用中的DOM元素。比如，$()方法会像document.querySelector()一样返回与指定CSS选择器相匹配的第一个元素。下面的代码会返回ID为”loginBtn”的元素。</p>
+<p>$(‘#loginBtn’);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141900-a6f452a7ecc94583838c431653ceca8a.png"></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">$$()</a>命令则像document.querySelectorAll()一样返回所有与指定CSS规则匹配的元素。如下面的代码会显示所有CSS class为”loginBtn”的<button>元素：</p>
+<p>$$(‘button.loginBtn’);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141901-a42730823e34403b8b0dec4215abf029.png"></p>
+<p>最后，x()方法会返回所有与传入的XPath路径参数相匹配的元素。下面的代码会返回 body 标签下的所有 script 元素：</p>
+<p>$x(‘&#x2F;html&#x2F;body&#x2F;script’);</p>
+<p><strong>检查DOM元素和JavaScript对象</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">inspect()</a>将一个指向DOM元素的引用(或指向JavaScript对象的引用)作为参数，并将其显示在相应的面板中&amp;mdash;&amp;mdash;在Elements面板显示DOM元素，或在Profile面板显示JavaScript对象。</p>
+<p>比如，在下面的截图中，$()方法会得到一个对<li>元素的引用。然后在最后的表达式中用($_)传给inspect()方法，以在Elements面板中显示该元素。</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141902-3fe24a47dd78425a980fc09b731ce727.png"></p>
+<p><strong>访问当前选中的元素和对象</strong></p>
+<p>通常，你会在测试的时候用放大镜或直接在Element面板中选择DOM元素，同时你也就可以进一步检视这些元素。或者，在你用Profiles面板分析一个内存使用情况快照时，你也可以选择一个JavaScript对象做进一步查看。</p>
+<p>Console会记录下你最近选择的5个元素（或者堆对象），并给他们命名为$0,$1,$2,$3和$4.。最近选择的对象为$0，其次为$1，以此类推。</p>
+<p>下面的截图显示了在选择了3个元素后这些属性的值：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141902-3fc820dce0e741a1967f58542c78e4fc.png"></p>
+<p><strong>注意：</strong>你也可以在任何元素上用鼠标右键点击并选择<strong>Reveal in Elements Panel</strong>。</p>
+<p><strong>监视事件</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">monitorEvents()</a>可以监视一个对象的一个或多个事件。当被监视的对象上有事件被触发时，相应的事件对象就会被显示在Console中。你可以指定要监视的对象和它上的事件。比如，下面的代码会监视window对象上的”resize”事件：</p>
+<p>monitorEvents(window,”resize”);</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141903-7248e8ca8a7d49548f6aea9b819164cf.png"></p>
+<p>如果需要监视一组事件，你可以将事件名称数组作为第二个参数传给该方法。下面的代码同时监视了body的”mousedown”事件和”mouseup”事件。</p>
+<p>monitorEvents(document.body,[“mousedown”,”mouseup”]);</p>
+<p>你还可以传一个合法的”事件类型”给这个方法，DevTools会把它对应到一组事件名称。比如，”touch”事件类型会让DevTools监视指定对象上的”touchstart”，”touchend”，”touchmove”，和”touchcancel”事件。</p>
+<p>monitorEvents($(‘#scrollBar’),”touch”);</p>
+<p>你可以在Console API Reference中查看monitorEvents()章节，以获得合法的事件类型列表。</p>
+<p>你可以调用unmonitorEvents()方法停止监视事件，只需将需要停止监视的对象作为参数传入该方法。</p>
+<p>unmonitorEvents(window);</p>
+<p><strong>控制CPU分析器</strong></p>
+<p>你可以在命令行用profile()和profileEnd()方法创建JavaScript CPU性能分析。你还可以给你创建的分析指定一个名字。</p>
+<p>下面的例子中用默认名称创建了一个新的性能分析：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141904-8727335b852041b0a2a934cc5c7723d4.png"></p>
+<p>这个新的性能分析会在Profile面板中的”Profile 1”项目下显示：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141905-759c0705cb50431a8f446d321fa220d1.png"></p>
+<p>如果你为新的性能分析指定了一个标签，它会被用作这个性能分析的标题。如果你对多个性能分析用了相同的名称，它们会被作为独立的性能分析并分组显示在同一个名称下：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141906-30e3f880bac049d6b0f477bdf13be7f7.png"></p>
+<p>Profiles面板中显示的结果：</p>
+<p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141907-a9a47783a1a149f280d1f4ca17eafbf1.png"></p>
+<p>CPU性能分析也可以被嵌套使用：</p>
+<p>profile(“A”);profile(“B”);profileEnd(“B”)profileEnd(“A”)</p>
+<p>性能分析的开始和结束方法并不一定需要被嵌套调用。比如，下面的用法将得到和前面相同的效果：</p>
+<p>profile(“A”);profile(“B”);profileEnd(“A”);profileEnd(“B”);</p>
+<p><em>Except as otherwise <a target="_blank" rel="noopener" href="https://developers.google.com/readme/policies?hl=zh-CN">noted</a>, the content of this page is licensed under the <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the<a target="_blank" rel="noopener" href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.</em></p>
+<p><em>Last updated六月21, 2013.</em></p>
+<p>原文见：<a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN">https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://silenttiger.online">SilentTiger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/">https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://silenttiger.online" target="_blank">老虎的小窝</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2013/07/11/javascript%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">javascript中的继承</div></div></a></div><div class="next-post pull-right"><a href="/2013/06/19/requestAnimationFrame%E4%BC%98%E5%8A%BF%E4%BD%95%E5%9C%A8/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">requestAnimationFrame优势何在</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SilentTiger</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/SilentTiger" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://twitter.com/SilentTiger" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://www.instagram.com/silenttiger007/" target="_blank" title="Instgram"><i class="fab fa-square-instagram"></i></a><a class="social-icon" href="mailto:cia.fbi.007@hotmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen"><img src="/2022/11/10/hello-miss-chen/20220813_123457183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello Miss Chen"/></a><div class="content"><a class="title" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen">Hello Miss Chen</a><time datetime="2022-11-26T13:09:32.364Z" title="发表于 2022-11-26 21:09:32">2022-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔"><img src="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/v2-357ec82163555e0b6ceba0816aecf05a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何用手机模拟激光笔"/></a><div class="content"><a class="title" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔">如何用手机模拟激光笔</a><time datetime="2022-03-20T13:48:00.000Z" title="发表于 2022-03-20 21:48:00">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹"><img src="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/v2-e3b6e7c4845a58c14140a720fa9efc1a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何绘制完美的鼠标轨迹"/></a><div class="content"><a class="title" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹">如何绘制完美的鼠标轨迹</a><time datetime="2021-11-03T03:39:00.000Z" title="发表于 2021-11-03 11:39:00">2021-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介"><img src="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/450824-20200415132734303-1624876863.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Quil-delta-enhanced 简介"/></a><div class="content"><a class="title" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介">Quil-delta-enhanced 简介</a><time datetime="2020-04-15T05:30:00.000Z" title="发表于 2020-04-15 13:30:00">2020-04-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/" title="PIT 编辑器编辑及协同架构说明">PIT 编辑器编辑及协同架构说明</a><time datetime="2019-12-02T13:15:00.000Z" title="发表于 2019-12-02 21:15:00">2019-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By SilentTiger</div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-JQEGNQ012T"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-JQEGNQ012T');</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "egqu5y2dya");</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?480bde5ec120cd4da0e9f7d3277b17bf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

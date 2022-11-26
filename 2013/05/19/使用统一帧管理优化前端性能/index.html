@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>使用统一帧管理优化前端性能 | 老虎的小窝</title><meta name="author" content="SilentTiger"><meta name="copyright" content="SilentTiger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="随着网络的普及和浏览器技术的日益进步，Web页面的呈现样式变得越来越丰富多彩，带着各种酷炫效果和富交互的网站层出不穷，Web页面再也不是一个简单信息罗列的文档了。 可是，随着web页面内容的逐渐丰富，浏览器渲染页面的性能瓶颈逐渐显现。所以，当web页面的动画效果从最开始的个别按钮和图标的交互动画逐渐演变为配合Ajax技术实现页面主体内容改变的过场动画，甚至到由复杂JavaScript实现的web在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用统一帧管理优化前端性能">
+<meta property="og:url" content="https://silenttiger.online/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/index.html">
+<meta property="og:site_name" content="老虎的小窝">
+<meta property="og:description" content="随着网络的普及和浏览器技术的日益进步，Web页面的呈现样式变得越来越丰富多彩，带着各种酷炫效果和富交互的网站层出不穷，Web页面再也不是一个简单信息罗列的文档了。 可是，随着web页面内容的逐渐丰富，浏览器渲染页面的性能瓶颈逐渐显现。所以，当web页面的动画效果从最开始的个别按钮和图标的交互动画逐渐演变为配合Ajax技术实现页面主体内容改变的过场动画，甚至到由复杂JavaScript实现的web在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silenttiger.online/img/avatar.png">
+<meta property="article:published_time" content="2013-05-19T14:57:00.000Z">
+<meta property="article:modified_time" content="2022-11-26T13:09:32.380Z">
+<meta property="article:author" content="SilentTiger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silenttiger.online/img/avatar.png"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://silenttiger.online/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用统一帧管理优化前端性能',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-11-26 21:09:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用统一帧管理优化前端性能</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2013-05-19T14:57:00.000Z" title="发表于 2013-05-19 22:57:00">2013-05-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-26T13:09:32.380Z" title="更新于 2022-11-26 21:09:32">2022-11-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用统一帧管理优化前端性能"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>随着网络的普及和浏览器技术的日益进步，Web页面的呈现样式变得越来越丰富多彩，带着各种酷炫效果和富交互的网站层出不穷，Web页面再也不是一个简单信息罗列的文档了。</p>
+<p>可是，随着web页面内容的逐渐丰富，浏览器渲染页面的性能瓶颈逐渐显现。所以，当web页面的动画效果从最开始的个别按钮和图标的交互动画逐渐演变为配合Ajax技术实现页面主体内容改变的过场动画，甚至到由复杂JavaScript实现的web在线游戏。做前端开发时对性能的优化和调校也变得越来越重要。</p>
+<p>好吧，前面废话了一堆，现在进入正题。</p>
+<p>考虑下图所示的一个场景：</p>
+<p><img src="/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/19224756-9d4d00c501804d9fb9dc44286f9293c3.png"></p>
+<p>页面分为6个部分，除最上方的Banner区域外，其他区域均会显示各种不同类型的动画效果（注：这里的“动画”指广义的动画，即只要呈现内容随时间发生变化就算是“动画”，如，一段文字从左向右缓慢移动算“动画”，一段文字内容由“AAA”变为“BBB”也算“动画”）。</p>
+<p>如果这4个动画区域的动画的频度相对较小，也许不会有什么问题，但，如果动画内容频度非常高，就很有可能会引起严重的性能问题。</p>
+<p>我们用如下所示的页面来模拟这种情况：</p>
+<p><img src="/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/19225255-6e659ee585214f05ac9c7dcdeaa57435.png"></p>
+<p>点击start按钮后，这个页面会在2~3秒时间内每一毫秒左右收到一条从server端发来的消息，一共3000条消息，每条消息包含cmd和data两部分内容，cmd表示该条消息在哪个方框内显示，data表示显示什么内容（这个内容是server端自行生成的一个0到1000的随机数）。</p>
+<p>客户端代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;css/reset.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/jquery.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/json2.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/config.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/SocketMessage.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/WebSocketClient.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#receivers</span> <span class="selector-tag">div</span>&#123;<span class="attribute">float</span><span class="selector-pseudo">:left</span>;<span class="attribute">height</span>:<span class="number">300px</span>;<span class="attribute">width</span>:<span class="number">80px</span>;<span class="attribute">border</span>:solid <span class="number">1px</span> black;<span class="attribute">display</span>:inline-block;<span class="attribute">overflow</span>:auto;<span class="attribute">margin-left</span>:<span class="number">5px</span>&#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;start()&quot;</span> <span class="attr">value</span>=<span class="string">&quot;start&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;showResult()&quot;</span> <span class="attr">value</span>=<span class="string">&quot;show result&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;resultContainer&quot;</span>&gt;</span>frame count:<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;fc&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </span><br><span class="line">    time cost:<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;tc&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>  </span><br><span class="line">    fps:<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">&quot;fps&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;receivers&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> frameCount = <span class="number">0</span>;     <span class="comment">//统计从动画开始到结束，页面的刷新次数</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> started = <span class="literal">false</span>;    <span class="comment">//标记动画过程是否已经开始</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> rs = [];            <span class="comment">//消息接收模块集合，用来接收server发来的消息并显示在页面上</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> t1, t2;             <span class="comment">//记录动画开始和结束的时间</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> useUFC = <span class="literal">true</span>;     <span class="comment">//标记是否使用统一帧管理方法</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">countFrame</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (!started) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">            frameCount++;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">webkitRequestAnimationFrame</span>(countFrame);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">refresh</span>(<span class="params"></span>) &#123;      <span class="comment">//刷新页面内容并计数</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (!started) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (useUFC) &#123;       <span class="comment">//如果用统一帧管理方法就绘制每一个消息接收类的实例</span></span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> rs) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (rs[i].<span class="property">needPaint</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                        rs[i].<span class="title function_">draw</span>();</span></span><br><span class="line"><span class="language-javascript">                        rs[i].<span class="property">needPaint</span> = <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="built_in">setTimeout</span>(refresh, <span class="number">16</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//创建到服务器的链接，用以接收消息</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> ws = <span class="title class_">CreateWebSocketConnection</span>(systemconfig.<span class="property">wsLication</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">start</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">//发送消息到服务器通知服务器开始发消息</span></span></span><br><span class="line"><span class="language-javascript">            ws.<span class="title function_">send</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="keyword">new</span> <span class="title class_">SocketMessage</span>(<span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;UFCT&#x27;</span>, &#123; <span class="attr">cmd</span>: <span class="string">&#x27;start&#x27;</span> &#125;)));</span></span><br><span class="line"><span class="language-javascript">            frameCount = <span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">            t1 = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">            started = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">countFrame</span>();</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">refresh</span>();</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//显示统计结果，包括页面刷新的次数和总共所用的时间</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">showResult</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            fc.<span class="property">innerHTML</span> = frameCount;</span></span><br><span class="line"><span class="language-javascript">            tc.<span class="property">innerHTML</span> = t2 - t1;</span></span><br><span class="line"><span class="language-javascript">            fps.<span class="property">innerHTML</span> = frameCount / (t2 - t1) * <span class="number">1000</span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//消息接收模块类</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">Receiver</span>(<span class="params">id</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">id</span> = id;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">msgContent</span> = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">needPaint</span> = <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span></span><br><span class="line"><span class="language-javascript">            $(<span class="string">&#x27;#receivers&#x27;</span>).<span class="title function_">append</span>(<span class="string">&#x27;&lt;div id=&quot;r&#x27;</span> + <span class="variable language_">this</span>.<span class="property">id</span> + <span class="string">&#x27;&quot;&gt;&lt;/div&gt;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">msg</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                msg = <span class="built_in">eval</span>(<span class="string">&#x27;(&#x27;</span> + msg.<span class="property">data</span> + <span class="string">&#x27;)&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (msg.<span class="property">Type</span> != <span class="string">&#x27;UFCT&#x27;</span> || msg.<span class="property">Data</span>.<span class="property">cmd</span> != that.<span class="property">id</span>) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">                that.<span class="property">msgContent</span> += msg.<span class="property">Data</span>.<span class="property">data</span> + <span class="string">&#x27;&lt;br/&gt;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">//如果用统一帧管理方法就标记自己需要被重绘，否则立即绘制</span></span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (useUFC) &#123;</span></span><br><span class="line"><span class="language-javascript">                    that.<span class="property">needPaint</span> = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="language-javascript">                    that.<span class="title function_">draw</span>()</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">draw</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">var</span> c = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;r&#x27;</span> + that.<span class="property">id</span>);</span></span><br><span class="line"><span class="language-javascript">                    c.<span class="property">innerHTML</span> = that.<span class="property">msgContent</span>;</span></span><br><span class="line"><span class="language-javascript">                    c.<span class="property">scrollTop</span> = c.<span class="property">scrollHeight</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//生成10个消息接收类的实例</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> r = <span class="keyword">new</span> <span class="title class_">Receiver</span>(i);</span></span><br><span class="line"><span class="language-javascript">            ws.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, r.<span class="property">onmessage</span>);</span></span><br><span class="line"><span class="language-javascript">            rs.<span class="title function_">push</span>(r);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//收到结束消息时，停止相应活动并显示结果</span></span></span><br><span class="line"><span class="language-javascript">        ws.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> (<span class="params">msg</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            msg = <span class="built_in">eval</span>(<span class="string">&#x27;(&#x27;</span> + msg.<span class="property">data</span> + <span class="string">&#x27;)&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (msg.<span class="property">Type</span> != <span class="string">&#x27;UFCT&#x27;</span> || msg.<span class="property">Data</span> != <span class="string">&#x27;end&#x27;</span>) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">            started = <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">            t2 = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">showResult</span>();</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>当变量useUFC标记为true时，页面使用统一帧管理方法来管理页面的刷新渲染过程，当标记为false时，则使用传统方式刷新页面，即页面收到消息后立即用新消息更新页面。</p>
+<p>我们先看看两种情况下的测试结果：</p>
+<p>useUFC &#x3D; <strong>false</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>No.</strong></td>
+<td><strong>Frame count</strong></td>
+<td><strong>Time cost(ms)</strong></td>
+<td><strong>FPS</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>13</td>
+<td>14371</td>
+<td>0.904599540</td>
+</tr>
+<tr>
+<td>2</td>
+<td>14</td>
+<td>14668</td>
+<td>0.954393619</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15</td>
+<td>14288</td>
+<td>1.049832026</td>
+</tr>
+<tr>
+<td>4</td>
+<td>14</td>
+<td>14212</td>
+<td>0.985083028</td>
+</tr>
+<tr>
+<td>5</td>
+<td>16</td>
+<td>14437</td>
+<td>1.108263489</td>
+</tr>
+</tbody></table>
+<p>useUFC &#x3D; <strong>true</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>No.</strong></td>
+<td><strong>Frame count</strong></td>
+<td><strong>Time cost(ms)</strong></td>
+<td><strong>FPS</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>48</td>
+<td>2420</td>
+<td>19.834710743</td>
+</tr>
+<tr>
+<td>2</td>
+<td>47</td>
+<td>2451</td>
+<td>19.175846593</td>
+</tr>
+<tr>
+<td>3</td>
+<td>49</td>
+<td>2318</td>
+<td>21.138912855</td>
+</tr>
+<tr>
+<td>4</td>
+<td>47</td>
+<td>2315</td>
+<td>20.302375809</td>
+</tr>
+<tr>
+<td>5</td>
+<td>49</td>
+<td>2410</td>
+<td>20.331950207</td>
+</tr>
+</tbody></table>
+<p>由上面的两张表大家可以看出，使用了统一帧管理方法后，页面的性能有质的飞跃。</p>
+<p>为什么会有如此显著的效果呢？这就要说到浏览器的工作原理了。</p>
+<p>如下图所示，浏览器从HTML文档下载完成到将页面内容显示到浏览器界面上，大概要经历下面4个步骤。</p>
+<p><img src="/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/19225331-b01242809bb94cf0a381f6c12543626c.png"></p>
+<p>然后，当页面的内容因为一些原因，比如执行js脚本，而发生改变时，就可能导致上面4个步骤中的一个或多个重新执行。</p>
+<p>比如在我们前面所设计的测试案例中，当useUFC变量标记为false时，浏览器每次收到从Server端发来的消息，js脚本都会将消息的内容作为一个新的文本节点添加到页面中去。这样做，会立刻导致HTML文档的部分DOM树重构，部分渲染树重构，部分渲染树重排，已经部分渲染树重绘。也就是说，每当浏览器收到一条消息，都会执行上面的4个步骤。这样一来，处理每条消息时，浏览器画在更新渲染页面上的时间大大超出了js脚本运行所需的时间。于是我们看到的结果就是页面变得非常卡，用户体验极差。</p>
+<p>而当我们将useUFC变量标记为true时，浏览器每次收到Server端发来的消息，都只是将消息内容写入到一个变量中记录下来，并不会立即去请求更新渲染页面，这样浏览器就省下了大量的计算资源。</p>
+<p>那么如果我们没有在收到消息时更新页面，那页面是什么时候更新的呢？关键就在这一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">refresh</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">//刷新页面内容并计数</span></span><br><span class="line">  <span class="keyword">if</span> (!started) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">if</span> (useUFC) &#123;</span><br><span class="line">    <span class="comment">//如果用统一帧管理方法就绘制每一个消息接收类的实例</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> rs) &#123;</span><br><span class="line">      <span class="keyword">if</span> (rs[i].<span class="property">needPaint</span>) &#123;</span><br><span class="line">        rs[i].<span class="title function_">draw</span>();</span><br><span class="line">        rs[i].<span class="property">needPaint</span> = <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">setTimeout</span>(refresh, <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>refresh这个函数会通过setTimeout递归调用自己，并且是每隔16ms调用一次，大约一秒60次。每次被调用的时候，该函数都会挨个检查页面上的动画元素是否需要更新页面，如果需要就一次将所有需要更新的内容全部更新。这样一来，浏览器每秒钟进行更新渲染页面的次数大大降低，反而提供了更好的用户体验。</p>
+<p>那么，是不是在任何时候我们都需要使用类似这样的统一帧管理方法呢？其实也不尽然。</p>
+<p>从上面的分析可以看出，这种统一帧管理方法之所以适用于我们前面所用到的测试案例，是因为在这个场景中，浏览器如果不进行统一帧管理，其更新页面的速度就会超过了浏览器的承受范围（收到每条消息都更新页面，大约每秒更新一千多次）。如果上面的案例中Server发送消息的频率很低，比如每秒20次，那么使用如此复杂的方法显然是多余的，浏览器自能应付自如。</p>
+<p>如有不妥之处敬请不吝赐教。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://silenttiger.online">SilentTiger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://silenttiger.online/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/">https://silenttiger.online/2013/05/19/%E4%BD%BF%E7%94%A8%E7%BB%9F%E4%B8%80%E5%B8%A7%E7%AE%A1%E7%90%86%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://silenttiger.online" target="_blank">老虎的小窝</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2013/06/19/requestAnimationFrame%E4%BC%98%E5%8A%BF%E4%BD%95%E5%9C%A8/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">requestAnimationFrame优势何在</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SilentTiger</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/SilentTiger" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://twitter.com/SilentTiger" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://www.instagram.com/silenttiger007/" target="_blank" title="Instgram"><i class="fab fa-square-instagram"></i></a><a class="social-icon" href="mailto:cia.fbi.007@hotmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen"><img src="/2022/11/10/hello-miss-chen/20220813_123457183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello Miss Chen"/></a><div class="content"><a class="title" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen">Hello Miss Chen</a><time datetime="2022-11-26T13:09:32.364Z" title="发表于 2022-11-26 21:09:32">2022-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔"><img src="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/v2-357ec82163555e0b6ceba0816aecf05a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何用手机模拟激光笔"/></a><div class="content"><a class="title" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔">如何用手机模拟激光笔</a><time datetime="2022-03-20T13:48:00.000Z" title="发表于 2022-03-20 21:48:00">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹"><img src="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/v2-e3b6e7c4845a58c14140a720fa9efc1a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何绘制完美的鼠标轨迹"/></a><div class="content"><a class="title" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹">如何绘制完美的鼠标轨迹</a><time datetime="2021-11-03T03:39:00.000Z" title="发表于 2021-11-03 11:39:00">2021-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介"><img src="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/450824-20200415132734303-1624876863.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Quil-delta-enhanced 简介"/></a><div class="content"><a class="title" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介">Quil-delta-enhanced 简介</a><time datetime="2020-04-15T05:30:00.000Z" title="发表于 2020-04-15 13:30:00">2020-04-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/" title="PIT 编辑器编辑及协同架构说明">PIT 编辑器编辑及协同架构说明</a><time datetime="2019-12-02T13:15:00.000Z" title="发表于 2019-12-02 21:15:00">2019-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By SilentTiger</div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-JQEGNQ012T"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-JQEGNQ012T');</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "egqu5y2dya");</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?480bde5ec120cd4da0e9f7d3277b17bf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

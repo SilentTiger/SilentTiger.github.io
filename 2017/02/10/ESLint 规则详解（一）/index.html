@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ESLint 规则详解（一） | 老虎的小窝</title><meta name="author" content="SilentTiger"><meta name="copyright" content="SilentTiger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前端界大神 Nicholas C. Zakas 在 2013 年开发的 ESLint，极大地方便了大家对 Javascript 代码进行代码规范检查。这个工具包含了 200 多条 Javascript 编码规范且运行迅速，是几乎每个前端项目都必备的辅助工具。可是，这么多规则，每个规则的设计出发点是什么，我们该如何选择适合自己项目的规则，又成了新问题。前不久，我所在的项目开始对前端代码进行代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESLint 规则详解（一）">
+<meta property="og:url" content="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="老虎的小窝">
+<meta property="og:description" content="前端界大神 Nicholas C. Zakas 在 2013 年开发的 ESLint，极大地方便了大家对 Javascript 代码进行代码规范检查。这个工具包含了 200 多条 Javascript 编码规范且运行迅速，是几乎每个前端项目都必备的辅助工具。可是，这么多规则，每个规则的设计出发点是什么，我们该如何选择适合自己项目的规则，又成了新问题。前不久，我所在的项目开始对前端代码进行代码规范">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png">
+<meta property="article:published_time" content="2017-02-10T01:01:00.000Z">
+<meta property="article:modified_time" content="2022-11-26T13:09:32.348Z">
+<meta property="article:author" content="SilentTiger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ESLint 规则详解（一）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-11-26 21:09:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ESLint 规则详解（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-02-10T01:01:00.000Z" title="发表于 2017-02-10 09:01:00">2017-02-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-26T13:09:32.348Z" title="更新于 2022-11-26 21:09:32">2022-11-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ESLint 规则详解（一）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png"></p>
+<p>前端界大神 Nicholas C. Zakas 在 2013 年开发的 ESLint，极大地方便了大家对 Javascript 代码进行代码规范检查。这个工具包含了 200 多条 Javascript 编码规范且运行迅速，是几乎每个前端项目都必备的辅助工具。可是，这么多规则，每个规则的设计出发点是什么，我们该如何选择适合自己项目的规则，又成了新问题。前不久，我所在的项目开始对前端代码进行代码规范的要求，于是我们详细梳理了 eslint 中的 230 个规则。我摘录了其中一些比较重要或特别的规则列在这里，希望能对大家的工作有所帮助。</p>
+<ol>
+<li><p>no-debugger</p>
+<p>一般来说，我们确实不希望代码中出现 debugger，但是，debugger 在项目的开发阶段还是非常有用的，所以我们并没有完全禁用这个关键字，而是采用了这样的配置：</p>
+<p>‘no-debugger’: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; ‘production’ ? 2 : 0</p>
+<p>这样一来，开发人员可以方便地使用 debugger 在本地进行各种调试，同时有保证了线上代码不会有忘记删掉的 debugger</p>
+</li>
+<li><p>no-extra-boolean-cast</p>
+<p>很多比较老的 javascript 代码里面可以看到这样的写法：</p>
+<p>var boolResult &#x3D; !!parameter;</p>
+<p>这里面实际上是做了一次隐式类型转换，可是，你真的确切里面 js 隐式转换的详细规则么？事实上，在《javascript高级编程》一书里面，作者就明确警告了大家，尽量不要使用隐式类型转换，因为这个转换规则异常复杂，所以我们打开了这个规则，来避免潜在的问题</p>
+</li>
+<li><p>no-inner-declarations</p>
+<p>ES6以前，函数声明只能在程序或另一个函数体的最前面，所以在代码块内部声明函数是错误的做法。另外，由于 javascript 中代码声明会被提升到代码当前作用域的最前面，所以在代码块内声明变量也是不明智的做法</p>
+</li>
+<li><p>use-isnan</p>
+<p>这是很多人都容易忽略的一个点。javascript 代码中 NaN 和任何变量作比较，都会得到 false，甚至和它自身比较都会得到false。所以，要判断一个变量是否是 NaN 的时候，一定要用 isNaN 方法</p>
+</li>
+<li><p>eqeqeq</p>
+<p>这一条可以说是每个 javascript 开发人员都必需遵守的，禁用 &#x3D;&#x3D; 和 !&#x3D; 用 &#x3D;&#x3D;&#x3D; 和 !&#x3D;&#x3D; 代替。原因和上面的第 2 条一样，&#x3D;&#x3D; 和 !&#x3D; 会带来隐式的类型转换，虽然 javascript 运行时并不会转换出错，但是后续维护代码的人却很可能理解错误，所以这条规则是必备的</p>
+</li>
+<li><p>no-caller</p>
+<p>这个规则的来由就比较复杂了，简单来说，这是 ES6 之前的一个 API，这个 API 虽然帮我们解决了一些特殊场景的问题（匿名递归函数），但是，滥用这两个 API 会导致更多的问题，所以这个 API 在 ES6 已经被弃用了，在 ES5 的严格模式下也是被禁用的。如果你想详细了解这个 API 的用法，可以查看 MDN 上的详细说明</p>
+</li>
+<li><p>no-extend-native</p>
+<p>不要扩展原生对象原型。当你在某个对象上用 for in 语句遍历对象属性，而又忘了用 hasOwnProperty 判断属性来源的时候，你就会发现被你扩展的原型属性也会被遍历出来，这往往都不是我们想要的结果</p>
+</li>
+<li><p>no-restricted-properties</p>
+<p>这个规则事实上是一个工具，它可以禁用指定对象的指定方法。比如我们希望开发人员在发 ajax 请求的时候，全部使用我们自己封装的 ajax 方法，而不要使用 jQuery 的 ajax 方法，我们就可以通过这个配置，即使发现不符合我们规定的代码</p>
+</li>
+<li><p>no-sequences</p>
+<p>逗号表达式其实是我们比较常用的语法特性，比如在 for 循环中。不过它也有很多容易让人犯错的用法，比如：</p>
+<p>var a &#x3D; 1, b &#x3D; 1;</p>
+<p>a &#x3D; b +&#x3D; 3, a + b;</p>
+<p>你知道这个时候 a 和 b 值分别是多少么？启用此规则之后，你仍然可以在 for 循环和其它一些不容易出错的场景中使用逗号表达式，不过，如果 ESLint 提示你触犯了规则，说明你就应该修改你的代码了。</p>
+<p>另外，上面 a 和 b 的值都是 4</p>
+</li>
+<li><p>no-with</p>
+</li>
+</ol>
+<p>  with 语句的作用是修改作用域链，虽然有时候可以用 with 语句来简化代码，比如：</p>
+<p>  with(frames[0].document.forms[1]){</p>
+<p>  console.log(name.value); &#x2F;&#x2F; 可直接访问 form 里面的 name 属性</p>
+<p>  }</p>
+<p>  但有时候 with 语句也会让代码难以理解，比如下面这段代码里面，打印出来的 log 对象无法确认是传入的参数还是 obj 上面的属性：</p>
+<p>  function f(log, obj) {</p>
+<p>  with (obj) {</p>
+<p>  console.log(log)</p>
+<p>  }</p>
+<p>  }</p>
+<p>  所以，我们还是应该尽量避免使用 with 语句</p>
+<p>最后附上 ESLint 规则列表，详细列出了每天规则的名称，官方是否推荐开启，以及每条规则是否能够用 –fix 参数自动修复。</p>
+<p>在下一篇文章中，我会再选取 10 条规则进行分析，并整理出一个包含中文翻译的 ESLint 规则列表，敬请期待。</p>
+<p><img src="/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085626213-1249539058.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://silenttiger.online">SilentTiger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/">https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://silenttiger.online" target="_blank">老虎的小窝</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/"><img class="prev-cover" src="/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/450824-20170210085550791-2142208530.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">ESLint 规则详解（二）</div></div></a></div><div class="next-post pull-right"><a href="/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"><img class="next-cover" src="/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/450824-20170120172421312-1355404588.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">我为什么不看好微信小程序</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SilentTiger</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/SilentTiger" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://twitter.com/SilentTiger" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://www.instagram.com/silenttiger007/" target="_blank" title="Instgram"><i class="fab fa-square-instagram"></i></a><a class="social-icon" href="mailto:cia.fbi.007@hotmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen"><img src="/2022/11/10/hello-miss-chen/20220813_123457183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello Miss Chen"/></a><div class="content"><a class="title" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen">Hello Miss Chen</a><time datetime="2022-11-26T13:09:32.364Z" title="发表于 2022-11-26 21:09:32">2022-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔"><img src="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/v2-357ec82163555e0b6ceba0816aecf05a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何用手机模拟激光笔"/></a><div class="content"><a class="title" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔">如何用手机模拟激光笔</a><time datetime="2022-03-20T13:48:00.000Z" title="发表于 2022-03-20 21:48:00">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹"><img src="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/v2-e3b6e7c4845a58c14140a720fa9efc1a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何绘制完美的鼠标轨迹"/></a><div class="content"><a class="title" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹">如何绘制完美的鼠标轨迹</a><time datetime="2021-11-03T03:39:00.000Z" title="发表于 2021-11-03 11:39:00">2021-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介"><img src="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/450824-20200415132734303-1624876863.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Quil-delta-enhanced 简介"/></a><div class="content"><a class="title" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介">Quil-delta-enhanced 简介</a><time datetime="2020-04-15T05:30:00.000Z" title="发表于 2020-04-15 13:30:00">2020-04-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/" title="PIT 编辑器编辑及协同架构说明">PIT 编辑器编辑及协同架构说明</a><time datetime="2019-12-02T13:15:00.000Z" title="发表于 2019-12-02 21:15:00">2019-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By SilentTiger</div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-JQEGNQ012T"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-JQEGNQ012T');</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "egqu5y2dya");</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?480bde5ec120cd4da0e9f7d3277b17bf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

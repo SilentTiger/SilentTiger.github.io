@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>如何设计一个异步Web服务——任务调度 | 老虎的小窝</title><meta name="author" content="SilentTiger"><meta name="copyright" content="SilentTiger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="接上一篇《如何设计一个异步Web服务&amp;mdash;&amp;mdash;接口部分》 Application已经将任务信息发到了Service服务器中，接下来，Service服务器改如何对自身的资源进行合理分配以满足Application对功能、性能、用户体验等各方面的需求呢？ 可以从如下几个方向入手去考虑：  当task提交到Service后，我们希望Service能够尽可能快的完成这个t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何设计一个异步Web服务——任务调度">
+<meta property="og:url" content="https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/index.html">
+<meta property="og:site_name" content="老虎的小窝">
+<meta property="og:description" content="接上一篇《如何设计一个异步Web服务&amp;mdash;&amp;mdash;接口部分》 Application已经将任务信息发到了Service服务器中，接下来，Service服务器改如何对自身的资源进行合理分配以满足Application对功能、性能、用户体验等各方面的需求呢？ 可以从如下几个方向入手去考虑：  当task提交到Service后，我们希望Service能够尽可能快的完成这个t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://silenttiger.online/img/avatar.png">
+<meta property="article:published_time" content="2014-12-01T09:03:00.000Z">
+<meta property="article:modified_time" content="2022-11-26T13:09:32.396Z">
+<meta property="article:author" content="SilentTiger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://silenttiger.online/img/avatar.png"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何设计一个异步Web服务——任务调度',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-11-26 21:09:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何设计一个异步Web服务——任务调度</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2014-12-01T09:03:00.000Z" title="发表于 2014-12-01 17:03:00">2014-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-11-26T13:09:32.396Z" title="更新于 2022-11-26 21:09:32">2022-11-26</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何设计一个异步Web服务——任务调度"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>接上一篇《<a target="_blank" rel="noopener" href="http://www.cnblogs.com/silenttiger/p/4076333.html" title="如何设计一个异步Web服务&mdash;&mdash;接口部分">如何设计一个异步Web服务&amp;mdash;&amp;mdash;接口部分</a>》</p>
+<p>Application已经将任务信息发到了Service服务器中，接下来，Service服务器改如何对自身的资源进行合理分配以满足Application对功能、性能、用户体验等各方面的需求呢？</p>
+<p>可以从如下几个方向入手去考虑：</p>
+<ol>
+<li>当task提交到Service后，我们希望Service能够尽可能快的完成这个task并返回结果。</li>
+<li>当大量task同时提交Service后，我们希望Service不要因为需要同时处理大量task导致性能下降，甚至失去响应。</li>
+<li>当有多个task被提交到Service时，我们不希望某一个task占用了所有计算资源，导致其他task长时间处于等待状态。</li>
+</ol>
+<p>根据上面的要求，我们会产生如下的设计要求：</p>
+<ol>
+<li>根据第一点要求，为了能够尽快完成一个task，我们可以使用多线程（或多进程）技术，将一个task拆分为多个子task然后并行处理，充分利用多核CPU的计算资源。</li>
+<li>根据第二点要求，我们需要为Service实现一个任务队列，以免大量并发请求导致Service计算资源被耗尽。同时，大量的并发也会导致CPU为进行资源调度浪费许多计算资源。</li>
+<li>根据第三点要求，虽然Service会使用任务队列对任务进行排队处理，但我们仍然希望有少量的task是并行进行的。</li>
+<li>另外，一个task被拆分为许多子task后，如果为每个子task创建一个单独的线程去处理，会导致CPU将大量时间消耗在线程的创建、销毁过程中。所以，应该使用线程池（或进程池）技术。</li>
+</ol>
+<p>下面，我们就根据上述的这些要求开始设计。</p>
+<p>首先，我们需要一个http服务器作为接收Application请求的接口。然后，我们创建一个QueenAnt（蚁后）类来负责任务和资源的调度，同时还需要若干个WorkerAnt（工蚁）类来处理各个具体的task。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656008114793.png"></p>
+<p>注意，这里的QueenAnt类是静态的，或者也可以用单例模式创建。前面提到我们需要使用线程池（或进程池）技术，所以，在QueenAnt类被实例化以后首先就需要把这个线程池创建出来，并创建若干线程放入这个池中。其中，每个线程都会实例化一个WorkerAnt类来等待QueenAnt发过来的task。这个地方还有一个问题，那就是我们的线程池中到底创建几个线程最优？这个问题我留到后面说明。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656017331878.png"></p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656025453762.png"></p>
+<p>当这些准备好了以后，Service就可以等待Application的请求了。</p>
+<p>当Application向Service发出addTask的请求时，http服务器会将这个请求通知给QueenAnt，并返回QueenAnt返回的taskId。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656035145833.png"></p>
+<p>QueenAnt在收到task请求后，除了返回taskId，还需要对这个task的相关信息进行初始化，比如设置task的状态信息，将task添加到任务队列等等。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656043896933.png"></p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656054985962.png"></p>
+<p>等这些结束以后，QueenAnt就开始针对已经收到的task进行任务调度和资源分配了。我们定义一个allocateResource方法来处理相关的逻辑。该方法将会指定threadPool中的哪个具体线程会来处理这个task。这之后，我们就可以把task相关的数据发给这个指定的thread进行处理了。而当有task完成时，处理该task的线程中的WorkerAnt就会发送相关信息给QueenAnt，调用QueenAnt的taskEndCallback方法，让QueenAnt重新分配资源。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656063737061.png"></p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656076861859.png"></p>
+<p>当WorkerAnt完成某一个task之后，他需要将这个task的相关信息返回给QueenAnt。同时标记自己为空闲状态，以便QueenAnt再进行资源分配。</p>
+<p>QueenAnt在收到WorkerAnt关于task完成的消息后，他也需要更新于这个task的相关状态信息，并在此根据threadPool和taskQueue的具体情况重新进行资源分配。</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656088584401.png"></p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656110301772.png"></p>
+<p>到这里，我们就通过上图描述的逻辑，满足了设计要求中的第二和第四点要求。那第一和第三点要求呢，就得通过allocateResource这个方法去实现了。</p>
+<p>下面我们详细讲一下allocateResource这个方法的内部逻辑。</p>
+<p>这里先声明一下后文的描述方法，我们把Application发过来的一个任务叫做”task”，而把由这个任务拆分出来的许许多多的小任务叫做”子task”。</p>
+<p>可能有人会产生疑惑，根据设计要求中的第一点，我们应该把task拆分为子task。可上面的设计中，我们放入taskQueue的却是Application传过来的task，是不是差一个拆分的步骤呢？</p>
+<p>其实并不是这样，这样的设计是因为开头的考虑方向中的第三点和设计要求中第三点，都要求一个task不可以占用所有的计算资源。这样说可能不太好理解，我们来举个例子：</p>
+<p>首先，Application向Service提交了task01，该task共20个子task，需要Service满负荷运行5分钟才能完成。</p>
+<p>到第3分钟的时候，Application又向Service提交了task02，该task共4个子task，需要Service满负荷运行1分钟即可完成。</p>
+<p>我们来分析一下这个场景。如果我们在将task01加入taskQueue之前，就将其拆分为许多的子task。并把threadPool中的资源依次分给这些子task。那么到第3分钟加入task02的各个子task的时候，由于task01的子task没有完成，task02只好处于等待状态。而且需要等task01的几乎所有子task都完成以后，才能进入处理中的状态，这一等就是10分钟。这显然违背了我们考虑方向中的第三点和设计要求中第三点。</p>
+<p>那么，怎样设计这个allocateResource的逻辑才能既满足设计要求中的第一点，又能满足第三点了？我的思路是这样的。</p>
+<p>首先，我们给task加上两个属性threadRequirement和runningThread。threadRequirement表示，为了完成这个task，如果给其每个子task分配一个线程，那么一共需要多少个线程，随着子task的完成，这个数值会越来越小，最后变为0即表示这个task已经全部完成。runningThread表示，当前有几个线程正在处理这个task的子task。</p>
+<p>然后，allocateResource这个方法有两个地方会调用，一是当Service收到新的task请求的时候。二是当某个子task完成，QueenAnt中的taskEndCallback被调用的时候。</p>
+<p>allocateResource在给task分配资源的时候，应遵守以下几个准则：</p>
+<ol>
+<li>taskQueue中处于等待状态的task应该尽可能的少。</li>
+<li>同时进行的task的数量不得超过threadPool中线程的总数。</li>
+<li>每个task都应该至少有一个线程在处理其子task。</li>
+<li>在满足以上条件的情况下，threadRequirement最小的task分配到所有剩余的空闲线程资源。</li>
+</ol>
+<p>这样说可能有些抽象。我们还是来举个上面那个例子，假设threadPool中共4个线程，task01的threadRequirement为20，task02的threadRequirement为2。过程如下：</p>
+<ol>
+<li>QueenAnt收到task01的请求后开始调用allocateResource方法。且当前threadPool中有空闲的线程资源。</li>
+<li>根据准则1，我们看到taskQueue中当前有一个task，就是task01。</li>
+<li>当前没有正在进行的task数量没有达到threadPool中的线程总数4，满足准则2。于是将task01从taskQueue中取出准备为其分配线程资源。</li>
+<li>为满足准则3，我们将threadPool中的一个空闲线程thread01分配给task01的一个子task：childTask01。</li>
+<li>为满足准则4，我们将threadPool中剩下的所有空闲线程都分配给task01，这样以来，task01的4个子task，childTask01~childTask04同时接受处理。</li>
+<li>一分钟后，childTask01<del>childTask04相继结束，taskEndCallback被触发，allocateResource再次被调用。重复上面的步骤3和步骤4。childTask05</del>childTask08开始接受处理。</li>
+<li>又一分钟后，childTask05<del>childTask08相继结束，taskEndCallback被触发，allocateResource再次被调用。重复上面的步骤3和步骤4。childTask09</del>childTask12开始接受处理。</li>
+<li>一秒钟后，QueenAnt收到task02的请求后开始调用allocateResource方法。但当前threadPool中没有空闲的线程资源，所以方法退出，task02停留在taskQueue中等待。</li>
+<li>大概59秒以后，task01的一个childTask09结束，taskEndCallback被触发，allocateResource再次被调用。</li>
+<li>根据准则2，当前正在进行的task只有task01，远没达到threadPool中线程的总数4，所以我们可以将task02从taskQueue中取出准备为其分配线程资源。</li>
+<li>根据准则3，每个task至少分配一个线程资源，而当前task02的runningThread为0。所以我们把刚才处理task01中childTask09的线程thread01分配给task02。就这样，task02也开始运行起来了。</li>
+<li>接下来，threadPool中的thread02和thread03也相继完成了task01的childTask10和childTask11，并触发taskEndCallback调用allocateResource。</li>
+<li>此时，我们根据准则4，会把刚刚释放出来的thread02和thread03两个线程资源都分配给task02。这时，task01只有一个线程资源thread04在处理，而其他三个线程资源都被用来处理task02了。</li>
+<li>再接下来，thread04处理完task01的childTask12后，根据准则3又会被分配给task01处理childTask13。</li>
+</ol>
+<p>大概的逻辑就是上面这样了。步骤看起来虽然略显复杂，但其实只有掌握了前面说的4个准则，allocateResource的逻辑还是很好实现：</p>
+<p><img src="/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/011656139051527.png"></p>
+<p>至此，关于Service任务调度和资源分配的设计也结束了。</p>
+<p>下面，我们来说一下前面遗留的一个问题：线程池中到底创建几个线程最优？</p>
+<p>为什么最后要特别来谈谈这个问题，是因为市面上有一种叫做超线程的CPU虚拟化的技术。比如Intel公司的酷睿i3系列CPU，明明是两个物理核心，在Windows的任务管理中，或在Linux系统的top命令下，显示的却是4个核心，因为CPU在硬件层面将两个物理核心模拟为4个逻辑核心了。根据我们上面的设计，自然是希望threadPool中的线程数量越多越好，可是也不能太多。因为多个线程同时争用一个CPU核心的资源是没有必要的。所以，如果是4核的CPU，我们一般会起4个线程放入threadPool。可是在这种使用了超线程技术的CPU平台上，如果你把线程数目配置为与CPU逻辑核心数目一致却是没有必要的。我在i3平台上实测数据如下：</p>
+<p>|||||||</p>
+<colgroup><col /><col /><col /><col /><col /><col /></colgroup>|---|---|---|---|---|---|
+|线程数|总耗时(s)|CPU 0 使用率|CPU 1 使用率|CPU 2 使用率|CPU 3 使用率|
+|1|22.4|1|0|98|0|
+|2|12.6|2|98|0|97|
+|3|11.2|78|64|97|4|
+|4|10.5|98|99|100|98|
+
+<p>我想上面的数据已经很好地说明了问题，虽然是4个逻辑核心，虽然你可以让4个线程同时运行，但其实在CPU物理层面，同时运行的指令最多就两个。也就是4个线程中每两个线程去争用一个物理核心的运算资源。</p>
+<p>其结果就是，性能上的微小进步却带来了CPU使用率的大幅飙升，反而使得用来作为接口的httpServer响应时间变长。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://silenttiger.online">SilentTiger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/">https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://silenttiger.online" target="_blank">老虎的小窝</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/"><img class="prev-cover" src="/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/1582168569690.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">《深入浅出NodeJS》mindmap</div></div></a></div><div class="next-post pull-right"><a href="/2014/11/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3%E9%83%A8%E5%88%86/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">如何设计一个异步Web服务——接口部分</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">SilentTiger</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/SilentTiger" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://twitter.com/SilentTiger" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://www.instagram.com/silenttiger007/" target="_blank" title="Instgram"><i class="fab fa-square-instagram"></i></a><a class="social-icon" href="mailto:cia.fbi.007@hotmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen"><img src="/2022/11/10/hello-miss-chen/20220813_123457183.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello Miss Chen"/></a><div class="content"><a class="title" href="/2022/11/26/hello-miss-chen/" title="Hello Miss Chen">Hello Miss Chen</a><time datetime="2022-11-26T13:09:32.364Z" title="发表于 2022-11-26 21:09:32">2022-11-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔"><img src="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/v2-357ec82163555e0b6ceba0816aecf05a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何用手机模拟激光笔"/></a><div class="content"><a class="title" href="/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/" title="如何用手机模拟激光笔">如何用手机模拟激光笔</a><time datetime="2022-03-20T13:48:00.000Z" title="发表于 2022-03-20 21:48:00">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹"><img src="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/v2-e3b6e7c4845a58c14140a720fa9efc1a_1440w.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="如何绘制完美的鼠标轨迹"/></a><div class="content"><a class="title" href="/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/" title="如何绘制完美的鼠标轨迹">如何绘制完美的鼠标轨迹</a><time datetime="2021-11-03T03:39:00.000Z" title="发表于 2021-11-03 11:39:00">2021-11-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介"><img src="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/450824-20200415132734303-1624876863.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Quil-delta-enhanced 简介"/></a><div class="content"><a class="title" href="/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/" title="Quil-delta-enhanced 简介">Quil-delta-enhanced 简介</a><time datetime="2020-04-15T05:30:00.000Z" title="发表于 2020-04-15 13:30:00">2020-04-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/" title="PIT 编辑器编辑及协同架构说明">PIT 编辑器编辑及协同架构说明</a><time datetime="2019-12-02T13:15:00.000Z" title="发表于 2019-12-02 21:15:00">2019-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By SilentTiger</div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-JQEGNQ012T"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-JQEGNQ012T');</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "egqu5y2dya");</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?480bde5ec120cd4da0e9f7d3277b17bf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
