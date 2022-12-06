@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:webfeeds="http://webfeeds.org/rss/1.0">
+  <title>老虎的小窝</title>
+  <icon>https://silenttiger.online/img/avatar.png</icon>
+  
+  <link href="https://silenttiger.online/atom.xml" rel="self"/>
+  <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
+  <link href="https://silenttiger.online/"/>
+  <updated>2022-12-06T11:19:41.549Z</updated>
+  <id>https://silenttiger.online/</id>
+  
+  <author>
+    <name>SilentTiger</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <webfeeds:cover image="https://silenttiger.online/img/avatar.png" />
+  <webfeeds:icon>https://silenttiger.online/img/avatar.png</webfeeds:icon>
+  <webfeeds:logo>https://silenttiger.online/img/avatar.png</webfeeds:logo>
+  <webfeeds:accentColor>f0ad4f</webfeeds:accentColor>
+  <webfeeds:related layout="card" target="browser"/>
+  
+  <entry>
+    <title>Hello Miss Chen</title>
+    <link href="https://silenttiger.online/2022/11/09/hello-miss-chen/"/>
+    <id>https://silenttiger.online/2022/11/09/hello-miss-chen/</id>
+    <published>2022-11-09T16:00:00.000Z</published>
+    <updated>2022-12-06T11:19:41.549Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to my personal website 😊&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何用手机模拟激光笔</title>
+    <link href="https://silenttiger.online/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/"/>
+    <id>https://silenttiger.online/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/</id>
+    <published>2022-03-20T13:48:00.000Z</published>
+    <updated>2022-12-06T11:19:41.577Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何绘制完美的鼠标轨迹</title>
+    <link href="https://silenttiger.online/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/"/>
+    <id>https://silenttiger.online/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/</id>
+    <published>2021-11-03T03:39:00.000Z</published>
+    <updated>2022-12-06T11:19:41.581Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;动机&quot;&gt;&lt;a href=&quot;#动机&quot; class=&quot;headerlink&quot; title=&quot;动机&quot;&gt;&lt;/a&gt;动机&lt;/h2&gt;&lt;p&gt;在公司的某次周会上，我吐槽了某产品中一个显示鼠标轨迹的效果实现得比较抽象：&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Quil-delta-enhanced 简介</title>
+    <link href="https://silenttiger.online/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/"/>
+    <id>https://silenttiger.online/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/</id>
+    <published>2020-04-15T05:30:00.000Z</published>
+    <updated>2022-12-06T11:19:41.541Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/450824-20200415132734303-1624876863.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://quilljs.com/&quot;&gt;Quill&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PIT 编辑器编辑及协同架构说明</title>
+    <link href="https://silenttiger.online/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/"/>
+    <id>https://silenttiger.online/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/</id>
+    <published>2019-12-02T13:15:00.000Z</published>
+    <updated>2022-12-06T11:19:41.537Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;pit 项目使用 quill-delta 作为数据层存储文档内容数据，quill-delta 是一个基于 OT 算法的库，用 quill-delta 作为数据层，不仅能很好的保存文档数据，还可以方便的实现文档的协同编辑，即多个人同时编辑同一份文档（需要服务器支持）。&lt;/p&gt;
+&lt;p&gt;quill-delta 数据格式不仅能很好的描述完整的文档内容，还可以很方便的描述文档的修改过程，所以 pit</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ESLint 规则详解（二）</title>
+    <link href="https://silenttiger.online/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>https://silenttiger.online/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
+    <published>2017-05-15T07:00:00.000Z</published>
+    <updated>2022-12-06T11:19:41.537Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/450824-20170210085550791-2142208530.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;接上篇&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ESLint 规则详解（一）</title>
+    <link href="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2017-02-10T01:01:00.000Z</published>
+    <updated>2022-12-06T11:19:41.533Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/450824-20170210085550791-2142208530.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;前端界大神 Nicholas C. Zakas 在 2013 年开发的 ESLint，极大地方便了大家对</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我为什么不看好微信小程序</title>
+    <link href="https://silenttiger.online/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    <id>https://silenttiger.online/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</id>
+    <published>2017-01-22T01:06:00.000Z</published>
+    <updated>2022-12-06T11:19:41.585Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>两分钟实现安全完备的登录模块</title>
+    <link href="https://silenttiger.online/2017/01/19/%E4%B8%A4%E5%88%86%E9%92%9F%E5%AE%9E%E7%8E%B0%E5%AE%89%E5%85%A8%E5%AE%8C%E5%A4%87%E7%9A%84%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/"/>
+    <id>https://silenttiger.online/2017/01/19/%E4%B8%A4%E5%88%86%E9%92%9F%E5%AE%9E%E7%8E%B0%E5%AE%89%E5%85%A8%E5%AE%8C%E5%A4%87%E7%9A%84%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/</id>
+    <published>2017-01-19T01:16:00.000Z</published>
+    <updated>2022-12-06T11:19:41.565Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>基于大数据的用户行为预测在前端性能优化上的应用</title>
+    <link href="https://silenttiger.online/2015/11/02/%E5%9F%BA%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E9%A2%84%E6%B5%8B%E5%9C%A8%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B8%8A%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>https://silenttiger.online/2015/11/02/%E5%9F%BA%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E9%A2%84%E6%B5%8B%E5%9C%A8%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B8%8A%E7%9A%84%E5%BA%94%E7%94%A8/</id>
+    <published>2015-11-02T09:23:00.000Z</published>
+    <updated>2022-12-06T11:19:41.573Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;首先，我得说，这篇文章有点标题党了，其实内容并没有标题看起来那么高大上。其次，本文只是做一个技术方案可能性的探讨，并没有提供完善的解决方案，至多给了一个 Demo</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>《深入浅出NodeJS》mindmap</title>
+    <link href="https://silenttiger.online/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/"/>
+    <id>https://silenttiger.online/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/</id>
+    <published>2015-03-12T02:49:00.000Z</published>
+    <updated>2022-12-06T11:19:41.561Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接触NodeJS有快两年了，但因为和我的工作内容关系不大，所以一直没有系统的学习。最近终于有空能系统地了解学习一下这门技术，于是买了一本朴灵老师的《深入浅出NodeJS》仔细研读。这本书内容不算很高深，但是讲得还算细致，豆瓣上面评分也不错。个人认为还是挺适合我的。&lt;/p&gt;
+&lt;p&gt;根据自己的理解，整理了mindmap，以便今后复习。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何设计一个异步Web服务——任务调度</title>
+    <link href="https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
+    <id>https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</id>
+    <published>2014-12-01T09:03:00.000Z</published>
+    <updated>2022-12-06T11:19:41.581Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;接上一篇《&lt;a href=&quot;http://www.cnblogs.com/silenttiger/p/4076333.html&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>如何设计一个异步Web服务——接口部分</title>
+    <link href="https://silenttiger.online/2014/11/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3%E9%83%A8%E5%88%86/"/>
+    <id>https://silenttiger.online/2014/11/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3%E9%83%A8%E5%88%86/</id>
+    <published>2014-11-05T06:40:00.000Z</published>
+    <updated>2022-12-06T11:19:41.585Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;需求比较简单，提供一个异步Web服务供使用者调用。比如说，某应用程序需要批量地给图片加lomo效果。由于加lomo效果这个操作非常消耗CPU资源，所以我们需要把这个加lomo效果的程序逻辑放到一台单独的服务器上去运行，以免影响应用本身所在服务器的性能。&lt;/p&gt;
+&lt;p&gt;这篇先讲讲服务的接口部分，侧重于理清应用和服务之间的调用关系，有时间的话，后面再写一篇关于服务内部任务分派资源调度的随笔。&lt;/</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>html元素双击事件触发机制猜想及疑惑</title>
+    <link href="https://silenttiger.online/2014/03/03/html%E5%85%83%E7%B4%A0%E5%8F%8C%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6%E7%8C%9C%E6%83%B3%E5%8F%8A%E7%96%91%E6%83%91/"/>
+    <id>https://silenttiger.online/2014/03/03/html%E5%85%83%E7%B4%A0%E5%8F%8C%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6%E7%8C%9C%E6%83%B3%E5%8F%8A%E7%96%91%E6%83%91/</id>
+    <published>2014-03-03T08:01:00.000Z</published>
+    <updated>2022-12-06T11:19:41.553Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天有个同事遇到一个奇怪的问题，我照着他的代码做了一些简化写了这个demo&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>javascript典型bug——错误的闭包</title>
+    <link href="https://silenttiger.online/2013/11/26/javascript%E5%85%B8%E5%9E%8Bbug%E2%80%94%E2%80%94%E9%94%99%E8%AF%AF%E7%9A%84%E9%97%AD%E5%8C%85/"/>
+    <id>https://silenttiger.online/2013/11/26/javascript%E5%85%B8%E5%9E%8Bbug%E2%80%94%E2%80%94%E9%94%99%E8%AF%AF%E7%9A%84%E9%97%AD%E5%8C%85/</id>
+    <published>2013-11-26T07:20:00.000Z</published>
+    <updated>2022-12-06T11:19:41.553Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;昨天 QT 给我的一个功能提了一个 bug。大概意思就是说，一段在不同位置都会被调用的代码，在 A 处被调用的时候，似乎会对其他调用的地方产生影响。&lt;/p&gt;
+&lt;p&gt;我仔细 debug 了半天，终于找到了原因。简化过的代码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Closure Compiler应用程序使用入门[译]</title>
+    <link href="https://silenttiger.online/2013/11/25/Closure%20Compiler%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8[%E8%AF%91]/"/>
+    <id>https://silenttiger.online/2013/11/25/Closure%20Compiler%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8[%E8%AF%91]/</id>
+    <published>2013-11-25T06:50:00.000Z</published>
+    <updated>2022-12-06T11:19:41.533Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Hello-World-示例&quot;&gt;&lt;a href=&quot;#Hello-World-示例&quot; class=&quot;headerlink&quot; title=&quot;Hello World 示例&quot;&gt;&lt;/a&gt;Hello World 示例&lt;/h2&gt;&lt;p&gt;Closure Compiler 应用程序是一个 Java 命令行工具，用来对 JavaScript 代码进行压缩、优化和排错。按照下面的步骤，用一个简单的</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>《javascript语言精粹》mindmap</title>
+    <link href="https://silenttiger.online/2013/08/07/%E3%80%8Ajavascript%E8%AF%AD%E8%A8%80%E7%B2%BE%E7%B2%B9%E3%80%8Bmindmap/"/>
+    <id>https://silenttiger.online/2013/08/07/%E3%80%8Ajavascript%E8%AF%AD%E8%A8%80%E7%B2%BE%E7%B2%B9%E3%80%8Bmindmap/</id>
+    <published>2013-08-07T08:43:00.000Z</published>
+    <updated>2022-12-06T11:19:41.557Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近刚刚读完&lt;a href=&quot;http://book.douban.com/subject/3590768/&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>博客园数据统计</title>
+    <link href="https://silenttiger.online/2013/07/12/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/"/>
+    <id>https://silenttiger.online/2013/07/12/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/</id>
+    <published>2013-07-12T08:04:00.000Z</published>
+    <updated>2022-12-06T11:19:41.565Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天突发奇想，想统计一下博客园上的这么多文章的阅读次数和发布时间之间有没有什么关系。&lt;/p&gt;
+&lt;p&gt;于是自己写了一个简单的 js 脚本，把博客园首页的 200 页内容，共 4000 篇文章的发布时间、阅读次数、推荐次数、评论次数都统计了下来。&lt;/p&gt;
+&lt;p&gt;（不知道有没有给服务器带来负担，抱歉啊，管理员童鞋）&lt;/p&gt;
+&lt;p&gt;然后把 js 生成的数据弄到 excel</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>javascript中的继承</title>
+    <link href="https://silenttiger.online/2013/07/11/javascript%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/"/>
+    <id>https://silenttiger.online/2013/07/11/javascript%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/</id>
+    <published>2013-07-11T07:35:00.000Z</published>
+    <updated>2022-12-06T11:19:41.553Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在过去的很多时候，javascript 都仅仅被用来当作一个“小工具”，比如用来处理一下异步请求、输入项校验、交互动画等等。这两年，随着 html5 的普及程度日趋提高和各种浏览器技术的不断推广，javascript 在 web 开发中占据越来越重要的位置。&lt;/p&gt;
+&lt;p&gt;本文尝试向大家展示几种在 javascript</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Using the Console[译]</title>
+    <link href="https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/"/>
+    <id>https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/</id>
+    <published>2013-06-25T06:26:00.000Z</published>
+    <updated>2022-12-06T11:19:41.541Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。&lt;/p&gt;
+&lt;p&gt;本人英文水平较渣，如有不妥之处，还请不吝赐教。&lt;/p&gt;
+&lt;p&gt;JavaScript</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
