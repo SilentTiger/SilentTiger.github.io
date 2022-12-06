@@ -106,3 +106,21 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# for rss feed
+feed:
+  enable: true
+  type:
+    - atom
+  path:
+    - atom.xml
+  limit: 20
+  # hub: https://pubsubhubbub.appspot.com
+  content:
+  content_limit: 200
+  content_limit_delim: ' '
+  order_by: -date
+  icon: /img/avatar.png
+  autodiscovery: true
+  template: ./atom_template.xml
+  hub: https://pubsubhubbub.appspot.com
