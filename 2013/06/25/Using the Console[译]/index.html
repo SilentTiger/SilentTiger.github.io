@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://silenttiger.online/img/avatar.png">
 <meta property="article:published_time" content="2013-06-25T06:26:00.000Z">
-<meta property="article:modified_time" content="2023-06-24T03:01:29.099Z">
+<meta property="article:modified_time" content="2023-08-25T03:49:45.686Z">
 <meta property="article:author" content="SilentTiger">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://silenttiger.online/img/avatar.png"><link rel="shortcut icon" href="/img/avatar.png"><link rel="canonical" href="https://silenttiger.online/2013/06/25/Using%20the%20Console[%E8%AF%91]/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
@@ -52,7 +52,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-06-24 11:01:29'
+  postUpdate: '2023-08-25 11:49:45'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
     }
     detectApple()
     })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="老虎的小窝" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Using the Console[译]</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2013-06-25T06:26:00.000Z" title="发表于 2013-06-25 14:26:00">2013-06-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-24T03:01:29.099Z" title="更新于 2023-06-24 11:01:29">2023-06-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Using the Console[译]"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。</p>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">老虎的小窝</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><span> Categories</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://www.instagram.com/silenttiger007/"><span> Gallery</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Using the Console[译]</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2013-06-25T06:26:00.000Z" title="发表于 2013-06-25 14:26:00">2013-06-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-25T03:49:45.686Z" title="更新于 2023-08-25 11:49:45">2023-08-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Using the Console[译]"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>由于最近的项目需要大量用到浏览器端的js编码和调试，所以仔细阅读了一下Chrome对于开发者工具中js部分的说明。虽然原来也用这个工具，但读后仍然觉得受益匪浅。于是抽空翻译一下，与大家分享。</p>
 <p>本人英文水平较渣，如有不妥之处，还请不吝赐教。</p>
 <p>JavaScript Console为开发人员测试网页和应用提供了两种主要的功能：</p>
 <ul>
@@ -196,8 +196,8 @@
 <p><strong>Console设置</strong></p>
 <p>在DevTools设置对话框的General标签页中有两个关于Console的全局设置项：</p>
 <ul>
-<li><strong>Log XMLHTTPRequests</strong>&amp;mdash;&amp;mdash;它决定了是否将每个XMLHTTPRequest请求都显示在Console面板中。</li>
-<li><strong>Preserve log upon navigation</strong>&amp;mdash;&amp;mdash;它决定了当你跳转到其他页面时是否保留当前页面的console历史信息。</li>
+<li><strong>Log XMLHTTPRequests</strong>&mdash;&mdash;它决定了是否将每个XMLHTTPRequest请求都显示在Console面板中。</li>
+<li><strong>Preserve log upon navigation</strong>&mdash;&mdash;它决定了当你跳转到其他页面时是否保留当前页面的console历史信息。</li>
 </ul>
 <p>默认状态下，这两个设置项都是关闭状态的。</p>
 <p>你还可以通过在Console的任何区域点击鼠标右键所显示的右键菜单中更改这两个设置项。</p>
@@ -227,11 +227,11 @@
 <p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141852-d53aab32794f47f486c81b8f22d86805.png"></p>
 <p>过滤选项：</p>
 <ul>
-<li><strong>All</strong>&amp;mdash;&amp;mdash;显示所有的输出信息。</li>
-<li><strong>Errors</strong>&amp;mdash;&amp;mdash;只显示通过console.error()方法输出的信息。</li>
-<li><strong>Warnings</strong>&amp;mdash;&amp;mdash;只显示通过console.warn()方法输出的信息。</li>
-<li><strong>Logs</strong>&amp;mdash;&amp;mdash;只显示通过console.log()，console.info()和console.debug()方法输出的信息。</li>
-<li><strong>Debug</strong>&amp;mdash;&amp;mdash;只显示通过console.timeEnd()方法输出的信息。</li>
+<li><strong>All</strong>&mdash;&mdash;显示所有的输出信息。</li>
+<li><strong>Errors</strong>&mdash;&mdash;只显示通过console.error()方法输出的信息。</li>
+<li><strong>Warnings</strong>&mdash;&mdash;只显示通过console.warn()方法输出的信息。</li>
+<li><strong>Logs</strong>&mdash;&mdash;只显示通过console.log()，console.info()和console.debug()方法输出的信息。</li>
+<li><strong>Debug</strong>&mdash;&mdash;只显示通过console.timeEnd()方法输出的信息。</li>
 </ul>
 <p><strong>对输出信息分组</strong></p>
 <p>你可以通过console.group()和groupEnd()命令对相关的console输出信息进行分组显示。</p>
@@ -320,7 +320,7 @@
 <p>最后，x()方法会返回所有与传入的XPath路径参数相匹配的元素。下面的代码会返回 body 标签下的所有 script 元素：</p>
 <p>$x(‘&#x2F;html&#x2F;body&#x2F;script’);</p>
 <p><strong>检查DOM元素和JavaScript对象</strong></p>
-<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">inspect()</a>将一个指向DOM元素的引用(或指向JavaScript对象的引用)作为参数，并将其显示在相应的面板中&amp;mdash;&amp;mdash;在Elements面板显示DOM元素，或在Profile面板显示JavaScript对象。</p>
+<p><a target="_blank" rel="noopener" href="https://developers.google.com/chrome-developer-tools/docs/commandline-api?hl=zh-CN">inspect()</a>将一个指向DOM元素的引用(或指向JavaScript对象的引用)作为参数，并将其显示在相应的面板中&mdash;&mdash;在Elements面板显示DOM元素，或在Profile面板显示JavaScript对象。</p>
 <p>比如，在下面的截图中，$()方法会得到一个对<li>元素的引用。然后在最后的表达式中用($_)传给inspect()方法，以在Elements面板中显示该元素。</p>
 <p><img src="/2013/06/25/Using%20the%20Console%5B%E8%AF%91%5D/25141902-3fe24a47dd78425a980fc09b731ce727.png"></p>
 <p><strong>访问当前选中的元素和对象</strong></p>
