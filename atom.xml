@@ -6,7 +6,7 @@
   <link href="https://silenttiger.online/atom.xml" rel="self"/>
   <link href="https://pubsubhubbub.appspot.com/" rel="hub"/>
   <link href="https://silenttiger.online/"/>
-  <updated>2024-01-08T08:45:42.055Z</updated>
+  <updated>2024-11-26T15:18:32.605Z</updated>
   <id>https://silenttiger.online/</id>
   
   <author>
@@ -22,11 +22,26 @@
   <webfeeds:related layout="card" target="browser"/>
   
   <entry>
+    <title>Web Clipper on Shortcut</title>
+    <link href="https://silenttiger.online/2024/11/26/Web-Clipper-on-Shortcut/"/>
+    <id>https://silenttiger.online/2024/11/26/Web-Clipper-on-Shortcut/</id>
+    <published>2024-11-26T15:07:19.000Z</published>
+    <updated>2024-11-26T15:18:32.605Z</updated>
+    
+    
+    <summary type="html">Web Clipper on Shortcut 是一个网页剪藏快捷指令，可以在 Safari 等浏览器上帮你快速剪藏网页正文内容到一些 App。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>一种新的骨架屏方案</title>
     <link href="https://silenttiger.online/2023/03/10/%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E9%AA%A8%E6%9E%B6%E5%B1%8F%E6%96%B9%E6%A1%88/"/>
     <id>https://silenttiger.online/2023/03/10/%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E9%AA%A8%E6%9E%B6%E5%B1%8F%E6%96%B9%E6%A1%88/</id>
     <published>2023-03-10T08:45:00.000Z</published>
-    <updated>2024-01-08T08:45:42.055Z</updated>
+    <updated>2024-11-26T15:18:32.617Z</updated>
     
     
     <summary type="html">这篇文章介绍了一种通过 mix-blend-mode 来实现的骨架屏方案。同时详细描述了其实现原理和新方案相比一般传统骨架屏方案的优势。</summary>
@@ -41,7 +56,7 @@
     <link href="https://silenttiger.online/2022/11/09/hello-miss-chen/"/>
     <id>https://silenttiger.online/2022/11/09/hello-miss-chen/</id>
     <published>2022-11-09T16:00:00.000Z</published>
-    <updated>2024-01-08T08:45:42.039Z</updated>
+    <updated>2024-11-26T15:18:32.605Z</updated>
     
     
       
@@ -62,7 +77,7 @@
     <link href="https://silenttiger.online/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/"/>
     <id>https://silenttiger.online/2022/03/20/%E5%A6%82%E4%BD%95%E7%94%A8%E6%89%8B%E6%9C%BA%E6%A8%A1%E6%8B%9F%E6%BF%80%E5%85%89%E7%AC%94/</id>
     <published>2022-03-20T13:48:00.000Z</published>
-    <updated>2024-01-08T08:45:42.075Z</updated>
+    <updated>2024-11-26T15:18:32.637Z</updated>
     
     
     <summary type="html">这篇文章介绍了一种通过手机来模拟激光笔效果的前端解决方案。文章中详细解释了其工作原理和实现方式，比较了两种不同的技术方案之间的区别，作者还解释了为何选择其中一种方案。最后，作者还提供了在线演示的 demo</summary>
@@ -77,7 +92,7 @@
     <link href="https://silenttiger.online/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/"/>
     <id>https://silenttiger.online/2021/11/03/%E5%A6%82%E4%BD%95%E7%BB%98%E5%88%B6%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%BC%A0%E6%A0%87%E8%BD%A8%E8%BF%B9/</id>
     <published>2021-11-03T03:39:00.000Z</published>
-    <updated>2024-01-08T08:45:42.079Z</updated>
+    <updated>2024-11-26T15:18:32.641Z</updated>
     
     
     <summary type="html">这篇文章描述了一种在 web 上显示平滑鼠标轨迹的方案。文章详细解释了其原理及其中涉及到的部分数学公式，并提供了一个功能完善的在线 demo</summary>
@@ -92,7 +107,7 @@
     <link href="https://silenttiger.online/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/"/>
     <id>https://silenttiger.online/2020/04/15/Quil-delta-enhanced%20%E7%AE%80%E4%BB%8B/</id>
     <published>2020-04-15T05:30:00.000Z</published>
-    <updated>2024-01-08T08:45:42.035Z</updated>
+    <updated>2024-11-26T15:18:32.597Z</updated>
     
     
       
@@ -114,7 +129,7 @@
     <link href="https://silenttiger.online/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/"/>
     <id>https://silenttiger.online/2019/12/02/PIT%20%E7%BC%96%E8%BE%91%E5%99%A8%E7%BC%96%E8%BE%91%E5%8F%8A%E5%8D%8F%E5%90%8C%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E/</id>
     <published>2019-12-02T13:15:00.000Z</published>
-    <updated>2024-01-08T08:45:42.035Z</updated>
+    <updated>2024-11-26T15:18:32.597Z</updated>
     
     
       
@@ -136,7 +151,7 @@
     <link href="https://silenttiger.online/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>https://silenttiger.online/2017/05/15/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
     <published>2017-05-15T07:00:00.000Z</published>
-    <updated>2024-01-08T08:45:42.031Z</updated>
+    <updated>2024-11-26T15:18:32.593Z</updated>
     
     
       
@@ -158,7 +173,7 @@
     <link href="https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>https://silenttiger.online/2017/02/10/ESLint%20%E8%A7%84%E5%88%99%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/</id>
     <published>2017-02-10T01:01:00.000Z</published>
-    <updated>2024-01-08T08:45:42.031Z</updated>
+    <updated>2024-11-26T15:18:32.593Z</updated>
     
     
       
@@ -180,7 +195,7 @@
     <link href="https://silenttiger.online/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
     <id>https://silenttiger.online/2017/01/22/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9C%8B%E5%A5%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</id>
     <published>2017-01-22T01:06:00.000Z</published>
-    <updated>2024-01-08T08:45:42.083Z</updated>
+    <updated>2024-11-26T15:18:32.645Z</updated>
     
     
       
@@ -201,7 +216,7 @@
     <link href="https://silenttiger.online/2017/01/19/%E4%B8%A4%E5%88%86%E9%92%9F%E5%AE%9E%E7%8E%B0%E5%AE%89%E5%85%A8%E5%AE%8C%E5%A4%87%E7%9A%84%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/"/>
     <id>https://silenttiger.online/2017/01/19/%E4%B8%A4%E5%88%86%E9%92%9F%E5%AE%9E%E7%8E%B0%E5%AE%89%E5%85%A8%E5%AE%8C%E5%A4%87%E7%9A%84%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/</id>
     <published>2017-01-19T01:16:00.000Z</published>
-    <updated>2024-01-08T08:45:42.067Z</updated>
+    <updated>2024-11-26T15:18:32.629Z</updated>
     
     
       
@@ -222,7 +237,7 @@
     <link href="https://silenttiger.online/2015/11/02/%E5%9F%BA%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E9%A2%84%E6%B5%8B%E5%9C%A8%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B8%8A%E7%9A%84%E5%BA%94%E7%94%A8/"/>
     <id>https://silenttiger.online/2015/11/02/%E5%9F%BA%E4%BA%8E%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E9%A2%84%E6%B5%8B%E5%9C%A8%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B8%8A%E7%9A%84%E5%BA%94%E7%94%A8/</id>
     <published>2015-11-02T09:23:00.000Z</published>
-    <updated>2024-01-08T08:45:42.075Z</updated>
+    <updated>2024-11-26T15:18:32.637Z</updated>
     
     
       
@@ -243,7 +258,7 @@
     <link href="https://silenttiger.online/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/"/>
     <id>https://silenttiger.online/2015/03/12/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodeJS%E3%80%8Bmindmap/</id>
     <published>2015-03-12T02:49:00.000Z</published>
-    <updated>2024-01-08T08:45:42.051Z</updated>
+    <updated>2024-11-26T15:18:32.613Z</updated>
     
     
       
@@ -266,7 +281,7 @@
     <link href="https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
     <id>https://silenttiger.online/2014/12/01/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</id>
     <published>2014-12-01T09:03:00.000Z</published>
-    <updated>2024-01-08T08:45:42.079Z</updated>
+    <updated>2024-11-26T15:18:32.641Z</updated>
     
     
       
@@ -287,7 +302,7 @@
     <link href="https://silenttiger.online/2014/11/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3%E9%83%A8%E5%88%86/"/>
     <id>https://silenttiger.online/2014/11/05/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%BC%82%E6%AD%A5Web%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3%E9%83%A8%E5%88%86/</id>
     <published>2014-11-05T06:40:00.000Z</published>
-    <updated>2024-01-08T08:45:42.079Z</updated>
+    <updated>2024-11-26T15:18:32.645Z</updated>
     
     
       
@@ -309,7 +324,7 @@
     <link href="https://silenttiger.online/2014/03/03/html%E5%85%83%E7%B4%A0%E5%8F%8C%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6%E7%8C%9C%E6%83%B3%E5%8F%8A%E7%96%91%E6%83%91/"/>
     <id>https://silenttiger.online/2014/03/03/html%E5%85%83%E7%B4%A0%E5%8F%8C%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6%E7%8C%9C%E6%83%B3%E5%8F%8A%E7%96%91%E6%83%91/</id>
     <published>2014-03-03T08:01:00.000Z</published>
-    <updated>2024-01-08T08:45:42.047Z</updated>
+    <updated>2024-11-26T15:18:32.609Z</updated>
     
     
       
@@ -331,7 +346,7 @@
     <link href="https://silenttiger.online/2013/11/26/javascript%E5%85%B8%E5%9E%8Bbug%E2%80%94%E2%80%94%E9%94%99%E8%AF%AF%E7%9A%84%E9%97%AD%E5%8C%85/"/>
     <id>https://silenttiger.online/2013/11/26/javascript%E5%85%B8%E5%9E%8Bbug%E2%80%94%E2%80%94%E9%94%99%E8%AF%AF%E7%9A%84%E9%97%AD%E5%8C%85/</id>
     <published>2013-11-26T07:20:00.000Z</published>
-    <updated>2024-01-08T08:45:42.047Z</updated>
+    <updated>2024-11-26T15:18:32.609Z</updated>
     
     
       
@@ -354,7 +369,7 @@
     <link href="https://silenttiger.online/2013/11/25/Closure%20Compiler%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8[%E8%AF%91]/"/>
     <id>https://silenttiger.online/2013/11/25/Closure%20Compiler%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8[%E8%AF%91]/</id>
     <published>2013-11-25T06:50:00.000Z</published>
-    <updated>2024-01-08T08:45:42.031Z</updated>
+    <updated>2024-11-26T15:18:32.593Z</updated>
     
     
       
@@ -375,7 +390,7 @@
     <link href="https://silenttiger.online/2013/08/07/%E3%80%8Ajavascript%E8%AF%AD%E8%A8%80%E7%B2%BE%E7%B2%B9%E3%80%8Bmindmap/"/>
     <id>https://silenttiger.online/2013/08/07/%E3%80%8Ajavascript%E8%AF%AD%E8%A8%80%E7%B2%BE%E7%B2%B9%E3%80%8Bmindmap/</id>
     <published>2013-08-07T08:43:00.000Z</published>
-    <updated>2024-01-08T08:45:42.051Z</updated>
+    <updated>2024-11-26T15:18:32.613Z</updated>
     
     
       
@@ -396,7 +411,7 @@
     <link href="https://silenttiger.online/2013/07/12/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/"/>
     <id>https://silenttiger.online/2013/07/12/%E5%8D%9A%E5%AE%A2%E5%9B%AD%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/</id>
     <published>2013-07-12T08:04:00.000Z</published>
-    <updated>2024-01-08T08:45:42.067Z</updated>
+    <updated>2024-11-26T15:18:32.629Z</updated>
     
     
       
@@ -407,28 +422,6 @@
 &lt;p&gt;于是自己写了一个简单的 js 脚本，把博客园首页的 200 页内容，共 4000 篇文章的发布时间、阅读次数、推荐次数、评论次数都统计了下来。&lt;/p&gt;
 &lt;p&gt;（不知道有没有给服务器带来负担，抱歉啊，管理员童鞋）&lt;/p&gt;
 &lt;p&gt;然后把 js 生成的数据弄到 excel</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>javascript中的继承</title>
-    <link href="https://silenttiger.online/2013/07/11/javascript%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/"/>
-    <id>https://silenttiger.online/2013/07/11/javascript%E4%B8%AD%E7%9A%84%E7%BB%A7%E6%89%BF/</id>
-    <published>2013-07-11T07:35:00.000Z</published>
-    <updated>2024-01-08T08:45:42.047Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在过去的很多时候，javascript 都仅仅被用来当作一个“小工具”，比如用来处理一下异步请求、输入项校验、交互动画等等。这两年，随着 html5 的普及程度日趋提高和各种浏览器技术的不断推广，javascript 在 web 开发中占据越来越重要的位置。&lt;/p&gt;
-&lt;p&gt;本文尝试向大家展示几种在 javascript</summary>
         
       
     
